@@ -1,0 +1,35 @@
+{
+  "name": "agenthub",
+  "version": "0.3.1",
+  "owner": {
+    "name": "Suyash Bhatkar",
+    "email": "info@apguru.com",
+    "url": "https://github.com/SKB3002"
+  },
+  "plugins": [
+    {
+      "name": "kit",
+      "description": "20 specialist subagents, 42 skills, and 17 slash commands. Approval-first dispatch with LIGHT/MEDIUM/HEAVY tiers, live /hub:help discovery, opt-in usage tracking, and project-scoped instincts. Adapted from vudovn/antigravity-kit with Python/FastAPI/SQLAlchemy and LLM observability additions.",
+      "category": "development",
+      "author": {
+        "name": "Suyash Bhatkar",
+        "url": "https://github.com/SKB3002"
+      },
+      "source": {
+        "source": "url",
+        "url": "https://github.com/SKB3002/agenthub.git"
+      },
+      "homepage": "https://github.com/SKB3002/agenthub",
+      "keywords": [
+        "agents",
+        "skills",
+        "workflows",
+        "fastapi",
+        "sqlalchemy",
+        "llm-observability",
+        "approval-gate",
+        "usage-tracking"
+      ]
+    }
+  ]
+}

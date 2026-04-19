@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build artifacts
+dist/
+build/
+*.log
+
+# Kit runtime state
+# .hub/usage.json — append-only spend log (always private)
+# .hub/budget.json — optional project-local budget override (always private)
+# .hub/instincts.yaml — team preferences; git-tracked by default per skills/instincts/SKILL.md
+.hub/
+!.hub/instincts.yaml
