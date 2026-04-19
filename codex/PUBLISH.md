@@ -1,78 +1,67 @@
-# Publishing AgentHub to OpenAI Codex
+# Installing AgentHub as a Codex Plugin
 
-> **Status (April 2026):** OpenAI Codex's plugin/agent ecosystem is still maturing. This document covers what is known and flags where you'll need to verify against current OpenAI docs.
-
----
-
-## What "publishing" means for each platform
-
-| Platform | Marketplace | CLI install | Local use |
-|---|---|---|---|
-| Claude Code | Yes — `claude plugin install <repo>` or VS Code sidebar | Yes | `claude --plugin-dir ./agenthub` |
-| OpenAI Codex | Unclear — see below | `codex plugin install ./agenthub/codex` (local) | Point Codex at `codex/` subfolder |
+Codex does not have a public plugin marketplace. Installation is local — you clone the repo into a `plugins/` directory and register it in a marketplace JSON file.
 
 ---
 
-## Current state of Codex plugins
+## Repo-local install (recommended)
 
-OpenAI Codex (the coding agent, distinct from the older Codex API/model) does not have a publicly documented third-party plugin marketplace as of this writing. The `codex/.codex-plugin/plugin.json` manifest format used in this repo is modelled on Claude Code's plugin format — it may not be officially supported by OpenAI Codex yet, or the specification may differ.
+Makes the plugin available inside a specific project only.
 
-**What is confirmed:**
-- Codex can load local agent/skill/command configurations when pointed at a directory
-- The `AGENTS.md` file at `codex/AGENTS.md` is read automatically at session start (equivalent to Claude Code's `CLAUDE.md`)
-- Agent definitions in TOML format (`codex/agents/*.toml`) align with Codex's agent specification
-
-**What is unclear:**
-- Whether a public plugin registry exists for Codex
-- Whether `codex plugin install <url>` is a supported CLI command
-- Submission/review requirements for any Codex marketplace
-
----
-
-## How to use AgentHub with Codex today (local install)
+**1. Clone into the project's plugins folder**
 
 ```bash
-git clone https://github.com/SKB3002/agenthub.git
-
-# Option A — point Codex at the codex/ subfolder
-codex --plugin-dir ./agenthub/codex
-
-# Option B — if Codex supports plugin install CLI
-codex plugin install ./agenthub/codex
+cd <your-project>
+git clone https://github.com/SKB3002/agenthub.git plugins/agenthub
 ```
 
-The `codex/AGENTS.md` file is picked up automatically and loads the routing protocol.
+The folder name must be lower-case hyphen-case and match the plugin's `name` field (`hub`). Use `agenthub` as the folder name.
+
+**2. Register in the marketplace file**
+
+Create or update `<your-project>/.agents/plugins/marketplace.json`:
+
+```json
+[
+  {
+    "path": "./plugins/agenthub/codex"
+  }
+]
+```
+
+The path points to the `codex/` subfolder — that's where `.codex-plugin/plugin.json` lives.
+
+**3. Verify**
+
+Restart Codex in the project. Run `/hub:help` — it should list all 17 commands, 20 agents, and 42 skills.
 
 ---
 
-## Steps to publish once a marketplace exists
+## Home-local install
 
-When OpenAI opens a plugin marketplace for Codex, the likely process will mirror other AI tool ecosystems:
-
-1. **Verify `codex/.codex-plugin/plugin.json`** is complete and valid:
-   - `name`, `version`, `description`, `author`, `homepage`, `repository`, `license`
-   - `agents_dir`, `skills_dir`, `commands_dir` pointing to correct relative paths
-
-2. **Run the sync tool** to ensure Codex agents are up to date:
-   ```bash
-   python tools/generate_codex.py --check
-   ```
-
-3. **Test locally** against the Codex CLI before submitting:
-   ```bash
-   codex --plugin-dir ./agenthub/codex
-   # Run /hub:help to verify all agents and commands load
-   ```
-
-4. **Submit via the Codex marketplace** — check `https://platform.openai.com` or the Codex CLI docs for the current submission endpoint.
+Makes the plugin available to Codex globally on this machine. Use the same steps but clone into your home-level Codex plugins directory instead of a project subfolder. Check your Codex installation docs for the exact home plugins path.
 
 ---
 
-## Tracking OpenAI Codex plugin docs
+## Keeping it up to date
 
-Monitor these sources for updates:
-- OpenAI developer docs: `https://platform.openai.com/docs`
-- OpenAI Codex changelog / release notes
-- The `openai/codex` GitHub repository (if public)
+```bash
+cd plugins/agenthub
+git pull
+```
 
-When the process becomes clear, update this file with the exact commands and replace this notice.
+No reinstall needed — Codex reads the files on each session start.
+
+---
+
+## What's in the `codex/` subfolder
+
+| File | Purpose |
+|---|---|
+| `.codex-plugin/plugin.json` | Manifest — name, version, paths |
+| `agents/*.toml` | 20 agent definitions (TOML format) |
+| `commands/*.md` | 17 slash commands |
+| `AGENTS.md` | Session protocol — loaded automatically at start |
+| `PUBLISH.md` | This file |
+
+Skills (`skills/*/SKILL.md`) are shared with the Claude Code platform and live at the repo root, not inside `codex/`. The manifest's `skills_dir` points back to `skills/` via relative path.
