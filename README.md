@@ -58,15 +58,49 @@ Then activate the routing protocol in your project's `CLAUDE.md`:
 
 Run `/hub:help` to verify the plugin loaded — it will show all 17 commands, 20 agents, and 42 skills.
 
-### OpenAI Codex
+### OpenAI Codex — Simple install
 
 ```bash
 git clone https://github.com/SKB3002/agenthub.git
 codex plugin install ./agenthub/codex
 ```
 
-Or point Codex at the `codex/` subfolder in the plugin marketplace.
-The `codex/AGENTS.md` is read automatically at session start.
+> **Important:** install from `./agenthub/codex`, not `./agenthub` — the Codex manifest is inside the `codex/` subfolder. The plugin name is `hub`, so commands are `/hub:*`.
+
+Restart Codex and run `/hub:help` to verify.
+
+### OpenAI Codex — Global install (available across all projects)
+
+```bash
+# 1. Clone to a stable location
+git clone https://github.com/SKB3002/agenthub.git ~/dev/agenthub   # macOS/Linux
+git clone https://github.com/SKB3002/agenthub.git C:\dev\agenthub  # Windows
+
+# 2. Create a stable pointer named "hub" to the codex/ subfolder
+ln -s ~/dev/agenthub/codex ~/plugins/hub                           # macOS/Linux
+New-Item -ItemType Junction -Path ~\plugins\hub -Target C:\dev\agenthub\codex  # Windows (PowerShell)
+```
+
+Then create `~/.agents/plugins/marketplace.json`:
+
+```json
+{
+  "name": "My Plugins",
+  "interface": { "displayName": "My Plugins" },
+  "plugins": [
+    {
+      "name": "hub",
+      "source": { "source": "local", "path": "./plugins/hub" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}
+```
+
+To update later: `git pull` inside the cloned repo — no reinstall needed.
+
+Full install guide: [`codex/PUBLISH.md`](codex/PUBLISH.md)
 
 ---
 

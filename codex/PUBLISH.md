@@ -1,52 +1,87 @@
 # Installing AgentHub as a Codex Plugin
 
-Codex does not have a public plugin marketplace. Installation is local — you clone the repo into a `plugins/` directory and register it in a marketplace JSON file.
+The Codex plugin lives in the `codex/` subfolder of this repo — **not the repo root**. The plugin name is `hub` (so all commands are `/hub:*`, all agents `hub:*`).
 
 ---
 
-## Repo-local install (recommended)
+## What's in the repo (nothing missing)
 
-Makes the plugin available inside a specific project only.
+| Path | Purpose |
+|---|---|
+| `codex/.codex-plugin/plugin.json` | Manifest — name `hub`, points to `codex/agents/`, `codex/commands/`, `skills/` |
+| `codex/agents/*.toml` | 20 agent definitions |
+| `codex/commands/*.md` | 17 slash commands |
+| `codex/AGENTS.md` | Session protocol — loaded automatically at start |
+| `skills/*/SKILL.md` | 42 skills — shared with Claude Code, lives at repo root |
 
-**1. Clone into the project's plugins folder**
+The only thing not shipped in the repo is a user's global marketplace file (`~/.agents/plugins/marketplace.json`) — that's per-machine and belongs to each user.
+
+---
+
+## Option A — Simple install (recommended)
 
 ```bash
-cd <your-project>
-git clone https://github.com/SKB3002/agenthub.git plugins/agenthub
+git clone https://github.com/SKB3002/agenthub.git
+codex plugin install ./agenthub/codex
 ```
 
-The folder name must be lower-case hyphen-case and match the plugin's `name` field (`hub`). Use `agenthub` as the folder name.
+Restart Codex (or open a new session), then run `/hub:help` to verify.
 
-**2. Register in the marketplace file**
-
-Create or update `<your-project>/.agents/plugins/marketplace.json`:
-
-```json
-[
-  {
-    "path": "./plugins/agenthub/codex"
-  }
-]
-```
-
-The path points to the `codex/` subfolder — that's where `.codex-plugin/plugin.json` lives.
-
-**3. Verify**
-
-Restart Codex in the project. Run `/hub:help` — it should list all 17 commands, 20 agents, and 42 skills.
+> **Important:** install from `./agenthub/codex`, not from `./agenthub`. The Codex manifest is inside the `codex/` subfolder.
 
 ---
 
-## Home-local install
+## Option B — Global install via marketplace file
 
-Makes the plugin available to Codex globally on this machine. Use the same steps but clone into your home-level Codex plugins directory instead of a project subfolder. Check your Codex installation docs for the exact home plugins path.
+Good for keeping the plugin available across all projects on your machine.
+
+**1. Clone the repo** to a stable location:
+
+```bash
+# Windows
+git clone https://github.com/SKB3002/agenthub.git C:\dev\agenthub
+
+# macOS / Linux
+git clone https://github.com/SKB3002/agenthub.git ~/dev/agenthub
+```
+
+**2. Create a stable `hub` pointer** to the `codex/` subfolder:
+
+```powershell
+# Windows — junction
+New-Item -ItemType Junction -Path C:\Users\<you>\plugins\hub -Target C:\dev\agenthub\codex
+```
+
+```bash
+# macOS / Linux — symlink
+ln -s ~/dev/agenthub/codex ~/plugins/hub
+```
+
+**3. Create `~/.agents/plugins/marketplace.json`** (or add to it if it exists):
+
+```json
+{
+  "name": "My Plugins",
+  "interface": { "displayName": "My Plugins" },
+  "plugins": [
+    {
+      "name": "hub",
+      "source": { "source": "local", "path": "./plugins/hub" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}
+```
+
+**4.** Restart Codex and run `/hub:help`.
 
 ---
 
 ## Keeping it up to date
 
 ```bash
-cd plugins/agenthub
+cd ~/dev/agenthub   # or wherever you cloned it
 git pull
 ```
 
@@ -54,14 +89,20 @@ No reinstall needed — Codex reads the files on each session start.
 
 ---
 
-## What's in the `codex/` subfolder
+## Using the plugin
 
-| File | Purpose |
-|---|---|
-| `.codex-plugin/plugin.json` | Manifest — name, version, paths |
-| `agents/*.toml` | 20 agent definitions (TOML format) |
-| `commands/*.md` | 17 slash commands |
-| `AGENTS.md` | Session protocol — loaded automatically at start |
-| `PUBLISH.md` | This file |
+```
+/hub:help                    — list all commands, agents, and skills
+/hub:help commands           — commands only
+/hub:help agents             — agents only
+/hub:help skills             — skills only
+/hub:help <name>             — details on a specific item
 
-Skills (`skills/*/SKILL.md`) are shared with the Claude Code platform and live at the repo root, not inside `codex/`. The manifest's `skills_dir` points back to `skills/` via relative path.
+/hub:brainstorm <idea>       — explore options before writing code
+/hub:plan <feature>          — generate a plan file in docs/
+/hub:create <app>            — scaffold a new app
+/hub:enhance <change>        — add/update features in an existing app
+/hub:debug <symptom>         — systematic root-cause investigation
+/hub:test [generate|run]     — write or run tests
+/hub:deploy [staging|prod]   — pre-flight + deploy
+```
