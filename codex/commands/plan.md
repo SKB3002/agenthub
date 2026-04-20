@@ -7,7 +7,7 @@ estimated-tokens: "20k–50k"
 platform: codex
 ---
 
-# /hub:plan — Project Planning Mode
+# @hub plan — Project Planning Mode
 
 $ARGUMENTS
 
@@ -19,7 +19,7 @@ If `$ARGUMENTS` starts with `--yes` or `-y`, set `bypass = true` and strip the f
 **Step 2 — Render the MEDIUM gate (skip if `bypass`).**
 
 ```
-⚖️  /hub:plan "<args>"
+⚖️  @hub plan "<args>"
     → hub:project-planner  (+ hub:plan-writing, hub:socratic-gate)
     Tier: MEDIUM · 20k–50k tokens · writes 1 file (docs/PLAN-<slug>.md)
     Proceed? (y/n/tweak)
@@ -49,7 +49,7 @@ Append to `.hub/usage.json` in the user's project directory.
 
 ## Examples
 ```
-/hub:plan e-commerce site with cart
-/hub:plan FastAPI rate limiting with Redis
-/hub:plan -y mobile onboarding flow
+@hub plan e-commerce site with cart
+@hub plan FastAPI rate limiting with Redis
+@hub plan -y mobile onboarding flow
 ```

@@ -7,7 +7,7 @@ estimated-tokens: "80k–200k"
 platform: codex
 ---
 
-# /hub:create — New Application
+# @hub create — New Application
 
 $ARGUMENTS
 
@@ -22,7 +22,7 @@ Ask only what you can't infer: stack, auth needed, hosting target, DB flavour.
 **Step 3 — Render HEAVY gate (skip if `bypass`).**
 
 ```
-⚖️  Kit dispatch preview — /hub:create
+⚖️  Kit dispatch preview — @hub create
 
 Task: "<args>"
 Planned agents: hub:project-planner → hub:database-architect → hub:backend-specialist → hub:frontend-specialist → hub:devops-engineer
@@ -32,7 +32,7 @@ MoSCoW:
   MUST    — working scaffold, DB schema, one end-to-end feature, README
   SHOULD  — tests, CI, seed records, .env.example
   COULD   — Dockerfile, example docs
-  WON'T   — actual deployment (run /hub:deploy separately)
+  WON'T   — actual deployment (run @hub deploy separately)
 
 Alternatives:
   (a) Full build                                  ~80k–200k
@@ -50,7 +50,7 @@ Append to `.hub/usage.json` in the user's project directory.
 
 ## Examples
 ```
-/hub:create todo app with auth
-/hub:create FastAPI service with Langfuse observability
-/hub:create -y simple static portfolio
+@hub create todo app with auth
+@hub create FastAPI service with Langfuse observability
+@hub create -y simple static portfolio
 ```

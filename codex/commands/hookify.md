@@ -7,7 +7,7 @@ estimated-tokens: "<2k"
 platform: codex
 ---
 
-# /hub:hookify — Hook Snippet Generator
+# @hub hookify — Hook Snippet Generator
 
 $ARGUMENTS
 

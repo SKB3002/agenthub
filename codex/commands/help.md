@@ -7,7 +7,7 @@ estimated-tokens: "<5k"
 platform: codex
 ---
 
-# /hub:help — Capability Index
+# @hub help — Capability Index
 
 $ARGUMENTS
 
@@ -27,9 +27,9 @@ No agent dispatch. No writes. One Read call for overview; two for lookup.
 
 ## Examples
 ```
-/hub:help
-/hub:help commands
-/hub:help agents
-/hub:help debugger
-/hub:help approval-gate
+@hub help
+@hub help commands
+@hub help agents
+@hub help debugger
+@hub help approval-gate
 ```

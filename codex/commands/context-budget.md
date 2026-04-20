@@ -7,7 +7,7 @@ estimated-tokens: "<2k"
 platform: codex
 ---
 
-# /hub:context-budget — Session Introspection
+# @hub context-budget — Session Introspection
 
 $ARGUMENTS
 

@@ -7,7 +7,7 @@ estimated-tokens: "80k–250k"
 platform: codex
 ---
 
-# /hub:orchestrate — Multi-Agent Orchestration
+# @hub orchestrate — Multi-Agent Orchestration
 
 $ARGUMENTS
 
@@ -35,7 +35,7 @@ Append to `.hub/usage.json` in the user's project directory.
 
 ## Examples
 ```
-/hub:orchestrate implement docs/PLAN-auth-refactor.md
-/hub:orchestrate build rate limiting for the LLM gateway
-/hub:orchestrate -y security audit + fix the top 3 findings
+@hub orchestrate implement docs/PLAN-auth-refactor.md
+@hub orchestrate build rate limiting for the LLM gateway
+@hub orchestrate -y security audit + fix the top 3 findings
 ```

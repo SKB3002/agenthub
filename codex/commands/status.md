@@ -7,7 +7,7 @@ estimated-tokens: "<2k"
 platform: codex
 ---
 
-# /hub:status — Project State
+# @hub status — Project State
 
 No agent dispatch. Read-only snapshot:
 

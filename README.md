@@ -65,9 +65,9 @@ git clone https://github.com/SKB3002/agenthub.git
 codex plugin install ./agenthub/codex
 ```
 
-> **Important:** install from `./agenthub/codex`, not `./agenthub` — the Codex manifest is inside the `codex/` subfolder. The plugin name is `hub`, so commands are `/hub:*`.
+> **Important:** install from `./agenthub/codex`, not `./agenthub` — the Codex manifest is inside the `codex/` subfolder.
 
-Restart Codex and run `/hub:help` to verify.
+Restart Codex and type `@hub help` to verify. **Use `@hub` to invoke, not `/hub:`** — the `/` prefix is reserved for Codex built-in commands and will reject plugin workflows.
 
 ### OpenAI Codex — Global install (available across all projects)
 

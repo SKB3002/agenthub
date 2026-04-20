@@ -7,7 +7,7 @@ estimated-tokens: "<2k"
 platform: codex
 ---
 
-# /hub:budget — Budget Declaration
+# @hub budget — Budget Declaration
 
 $ARGUMENTS
 

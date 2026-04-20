@@ -1,7 +1,7 @@
 {
   "name": "hub",
-  "version": "0.4.0",
-  "description": "20 specialist subagents, 42 skills, and 17 slash commands for OpenAI Codex. Approval-first dispatch, live capability discovery, and opt-in usage tracking — all on the user's budget, with the user's consent.",
+  "version": "0.4.1",
+  "description": "20 specialist subagents, 42 skills, and 17 workflows for OpenAI Codex. Invoke with @hub. Approval-first dispatch, live capability discovery, and opt-in usage tracking — all on the user's budget, with the user's consent.",
   "author": {
     "name": "Suyash Bhatkar",
     "url": "https://github.com/SKB3002"
@@ -20,7 +20,6 @@
     "agents",
     "subagents",
     "skills",
-    "slash-commands",
     "workflows",
     "developer-tools",
     "ai-agents"

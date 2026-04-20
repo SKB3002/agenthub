@@ -1,6 +1,8 @@
 # Installing AgentHub as a Codex Plugin
 
-The Codex plugin lives in the `codex/` subfolder of this repo — **not the repo root**. The plugin name is `hub` (so all commands are `/hub:*`, all agents `hub:*`).
+The Codex plugin lives in the `codex/` subfolder of this repo — **not the repo root**. The plugin name is `hub`.
+
+**How to invoke after install:** type `@hub` in the Codex composer. Do NOT use `/hub:` — the `/` prefix is reserved for Codex built-in commands and plugin commands typed that way are rejected.
 
 ---
 
@@ -8,9 +10,9 @@ The Codex plugin lives in the `codex/` subfolder of this repo — **not the repo
 
 | Path | Purpose |
 |---|---|
-| `codex/.codex-plugin/plugin.json` | Manifest — name `hub`, points to `codex/agents/`, `codex/commands/`, `skills/` |
+| `codex/.codex-plugin/plugin.json` | Manifest — name `hub`, paths relative to manifest location |
 | `codex/agents/*.toml` | 20 agent definitions |
-| `codex/commands/*.md` | 17 slash commands |
+| `codex/commands/*.md` | 17 workflow templates (invoked via `@hub`, not `/hub:`) |
 | `codex/AGENTS.md` | Session protocol — loaded automatically at start |
 | `skills/*/SKILL.md` | 42 skills — shared with Claude Code, lives at repo root |
 
@@ -25,7 +27,7 @@ git clone https://github.com/SKB3002/agenthub.git
 codex plugin install ./agenthub/codex
 ```
 
-Restart Codex (or open a new session), then run `/hub:help` to verify.
+Restart Codex (or open a new session), then type `@hub help` to verify.
 
 > **Important:** install from `./agenthub/codex`, not from `./agenthub`. The Codex manifest is inside the `codex/` subfolder.
 
@@ -74,7 +76,7 @@ ln -s ~/dev/agenthub/codex ~/plugins/hub
 }
 ```
 
-**4.** Restart Codex and run `/hub:help`.
+**4.** Restart Codex and type `@hub help` to verify.
 
 ---
 
@@ -91,18 +93,22 @@ No reinstall needed — Codex reads the files on each session start.
 
 ## Using the plugin
 
-```
-/hub:help                    — list all commands, agents, and skills
-/hub:help commands           — commands only
-/hub:help agents             — agents only
-/hub:help skills             — skills only
-/hub:help <name>             — details on a specific item
+Type `@hub` in the Codex composer — autocomplete will show available workflows and skills.
 
-/hub:brainstorm <idea>       — explore options before writing code
-/hub:plan <feature>          — generate a plan file in docs/
-/hub:create <app>            — scaffold a new app
-/hub:enhance <change>        — add/update features in an existing app
-/hub:debug <symptom>         — systematic root-cause investigation
-/hub:test [generate|run]     — write or run tests
-/hub:deploy [staging|prod]   — pre-flight + deploy
 ```
+@hub help                    — list all workflows, agents, and skills
+@hub help commands           — workflows only
+@hub help agents             — agents only
+@hub help skills             — skills only
+@hub help <name>             — details on a specific item
+
+@hub brainstorm <idea>       — explore options before writing code
+@hub plan <feature>          — generate a plan file in docs/
+@hub create <app>            — scaffold a new app
+@hub enhance <change>        — add/update features in an existing app
+@hub debug <symptom>         — systematic root-cause investigation
+@hub test [generate|run]     — write or run tests
+@hub deploy [staging|prod]   — pre-flight + deploy
+```
+
+Skills are also available directly via the `$` picker: `$hub-debug`, `$hub-plan`, etc.

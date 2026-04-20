@@ -7,7 +7,7 @@ estimated-tokens: "15k–40k"
 platform: codex
 ---
 
-# /hub:debug — Systematic Problem Investigation
+# @hub debug — Systematic Problem Investigation
 
 $ARGUMENTS
 
@@ -19,7 +19,7 @@ If `$ARGUMENTS` starts with `--yes` or `-y`, set `bypass = true` and strip the f
 **Step 2 — Render the MEDIUM gate (skip if `bypass`).**
 
 ```
-⚖️  /hub:debug "<args>"
+⚖️  @hub debug "<args>"
     → hub:debugger  (+ hub:systematic-debugging, hub:clean-code)
     Tier: MEDIUM · 15k–40k tokens · writes 0–2 files
     Proceed? (y/n/tweak)
@@ -39,7 +39,7 @@ Append to `.hub/usage.json` in the user's project directory (not the plugin dire
 
 ## Examples
 ```
-/hub:debug login not working
-/hub:debug API returns 500 on POST /users
-/hub:debug -y Alembic migration fails on NOT NULL
+@hub debug login not working
+@hub debug API returns 500 on POST /users
+@hub debug -y Alembic migration fails on NOT NULL
 ```

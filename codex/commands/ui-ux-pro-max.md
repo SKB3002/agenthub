@@ -7,7 +7,7 @@ estimated-tokens: "60k–180k"
 platform: codex
 ---
 
-# /hub:ui-ux-pro-max — AI-Powered Design Intelligence
+# @hub ui-ux-pro-max — AI-Powered Design Intelligence
 
 $ARGUMENTS
 
@@ -30,7 +30,7 @@ Append to `.hub/usage.json` in the user's project directory.
 
 ## Examples
 ```
-/hub:ui-ux-pro-max redesign landing hero
-/hub:ui-ux-pro-max SaaS dashboard dark mode
-/hub:ui-ux-pro-max -y mobile onboarding flow
+@hub ui-ux-pro-max redesign landing hero
+@hub ui-ux-pro-max SaaS dashboard dark mode
+@hub ui-ux-pro-max -y mobile onboarding flow
 ```

@@ -7,7 +7,7 @@ estimated-tokens: "<3k"
 platform: codex
 ---
 
-# /hub:ledger — Usage Log Views
+# @hub ledger — Usage Log Views
 
 $ARGUMENTS
 

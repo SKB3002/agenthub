@@ -7,7 +7,7 @@ estimated-tokens: "10k–30k"
 platform: codex
 ---
 
-# /hub:brainstorm — Structured Idea Exploration
+# @hub brainstorm — Structured Idea Exploration
 
 $ARGUMENTS
 
@@ -19,7 +19,7 @@ If `$ARGUMENTS` starts with `--yes` or `-y`, set `bypass = true` and strip the f
 **Step 2 — Render the MEDIUM gate (skip if `bypass`).**
 
 ```
-⚖️  /hub:brainstorm "<args>"
+⚖️  @hub brainstorm "<args>"
     → hub:product-manager  (+ hub:socratic-gate)
     Tier: MEDIUM · 10k–30k tokens · writes 0 files
     Proceed? (y/n/tweak)
@@ -47,7 +47,7 @@ Append to `.hub/usage.json` in the user's project directory.
 
 ## Examples
 ```
-/hub:brainstorm authentication strategy
-/hub:brainstorm caching for LLM gateway
-/hub:brainstorm -y state management approach
+@hub brainstorm authentication strategy
+@hub brainstorm caching for LLM gateway
+@hub brainstorm -y state management approach
 ```

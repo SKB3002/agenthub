@@ -7,7 +7,7 @@ estimated-tokens: "50k–150k"
 platform: codex
 ---
 
-# /hub:enhance — Update Existing Application
+# @hub enhance — Update Existing Application
 
 $ARGUMENTS
 
@@ -33,7 +33,7 @@ Append to `.hub/usage.json` in the user's project directory.
 
 ## Examples
 ```
-/hub:enhance add dark mode
-/hub:enhance integrate Stripe payments
-/hub:enhance -y add rate limiting to /api/generate
+@hub enhance add dark mode
+@hub enhance integrate Stripe payments
+@hub enhance -y add rate limiting to /api/generate
 ```

@@ -7,7 +7,7 @@ estimated-tokens: "<2k"
 platform: codex
 ---
 
-# /hub:instincts — Project Preferences
+# @hub instincts — Project Preferences
 
 $ARGUMENTS
 

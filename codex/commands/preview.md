@@ -7,7 +7,7 @@ estimated-tokens: "<2k"
 platform: codex
 ---
 
-# /hub:preview — Dev Server
+# @hub preview — Dev Server
 
 $ARGUMENTS
 

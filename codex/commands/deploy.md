@@ -7,7 +7,7 @@ estimated-tokens: "40k–100k"
 platform: codex
 ---
 
-# /hub:deploy — Production Deployment
+# @hub deploy — Production Deployment
 
 $ARGUMENTS
 
@@ -28,8 +28,8 @@ Append to `.hub/usage.json`. Include platform and deployment URL in `notes`.
 
 ## Examples
 ```
-/hub:deploy check
-/hub:deploy staging
-/hub:deploy production
-/hub:deploy rollback
+@hub deploy check
+@hub deploy staging
+@hub deploy production
+@hub deploy rollback
 ```

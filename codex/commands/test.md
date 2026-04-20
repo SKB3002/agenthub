@@ -7,7 +7,7 @@ estimated-tokens: "15k–60k"
 platform: codex
 ---
 
-# /hub:test — Test Generation & Execution
+# @hub test — Test Generation & Execution
 
 $ARGUMENTS
 
@@ -33,7 +33,7 @@ Append to `.hub/usage.json` in the user's project directory.
 
 ## Examples
 ```
-/hub:test                           # run all tests
-/hub:test generate src/auth.py      # generate tests for a file
-/hub:test coverage
+@hub test                           # run all tests
+@hub test generate src/auth.py      # generate tests for a file
+@hub test coverage
 ```
