@@ -29,8 +29,8 @@ Thanks for your interest in improving AgentHub. All contributions are welcome �
 
 | Primitive | Claude Code path | Codex path |
 |---|---|---|
-| Agents | `agents/*.md` (YAML frontmatter) | `codex/agents/*.toml` (auto-generated) |
-| Commands | `commands/*.md` | `codex/commands/*.md` (manually kept in sync) |
+| Agents | `agents/*.md` (YAML frontmatter) | `plugins/hub/agents/*.toml` (auto-generated) |
+| Commands | `commands/*.md` | `plugins/hub/commands/*.md` (manually kept in sync) |
 | Skills | `skills/<name>/SKILL.md` | same — skills are shared |
 | Validation scripts | `skills/<name>/scripts/*.py` | same — shared |
 | Hooks | `claude/hooks/` | n/a |

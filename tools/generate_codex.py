@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-generate_codex.py — Sync agenthub source → codex/ distribution.
+generate_codex.py — Sync agenthub source → plugins/hub/ Codex distribution.
 
-Run on every release to keep codex/agents/*.toml in sync with agents/*.md.
-Skills (skills/*/SKILL.md) are shared verbatim — no conversion needed.
+Run on every release to keep plugins/hub/agents/*.toml in sync with agents/*.md.
+Skills (skills/*/SKILL.md) are shared — copy into plugins/hub/skills/ separately.
 
 Usage:
     python tools/generate_codex.py             # dry-run, shows diff
-    python tools/generate_codex.py --write     # write files to codex/agents/
+    python tools/generate_codex.py --write     # write files to plugins/hub/agents/
     python tools/generate_codex.py --check     # exit 1 if any file is stale (CI mode)
 """
 
@@ -17,8 +17,8 @@ import tomllib  # stdlib from Python 3.11+; use `pip install tomli` for older
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent
-AGENTS_SRC = REPO_ROOT / "claude" / "agents"
-AGENTS_DEST = REPO_ROOT / "codex" / "agents"
+AGENTS_SRC = REPO_ROOT / "agents"
+AGENTS_DEST = REPO_ROOT / "plugins" / "hub" / "agents"
 
 # Fields extracted from Claude Code YAML frontmatter → mapped to TOML keys
 FRONTMATTER_MAP = {

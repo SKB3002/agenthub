@@ -45,17 +45,19 @@ Four top-level primitive folders, each with a rigid convention. Do not reorganiz
 - **[commands/](commands/)** — flat `.md` files. Claude Code auto-namespaces them as `/hub:<filename>` (the `hub` prefix comes from the `name` field in [.claude-plugin/plugin.json](.claude-plugin/plugin.json)). Do **not** prefix the filename yourself.
 - **[claude/hooks/](claude/hooks/)** — ships `hooks.json` intentionally empty. Real examples live in `hooks.example.json`; users copy entries in to opt in. Never auto-enable anything here.
 
-### The `codex/` dual-platform distribution
+### The `plugins/hub/` dual-platform distribution
 
-The repo ships for two platforms. `codex/` is a parallel distribution for OpenAI Codex:
+The repo ships for two platforms. `plugins/hub/` is a self-contained distribution for OpenAI Codex:
 
-- `codex/agents/*.toml` — TOML equivalents of `agents/*.md` (YAML→TOML conversion, Claude-specific `tools:` field dropped)
-- `codex/commands/*.md` — command files mirrored from `commands/`
-- `codex/AGENTS.md` — the Codex equivalent of `PROTOCOL.md`
+- `plugins/hub/agents/*.toml` — TOML equivalents of `agents/*.md` (YAML→TOML conversion, Claude-specific `tools:` field dropped)
+- `plugins/hub/commands/*.md` — command files mirrored from `commands/`
+- `plugins/hub/skills/*/SKILL.md` — 42 skills mirrored from `skills/`
+- `plugins/hub/AGENTS.md` — the Codex equivalent of `PROTOCOL.md`
+- `plugins/hub/.codex-plugin/plugin.json` — Codex manifest
 
-**Skills are shared verbatim** — `skills/*/SKILL.md` is read directly by both platforms, no conversion needed.
+Codex installs this folder as a standalone plugin (discovered via `.agents/plugins/marketplace.json` at the repo root), so every file it needs must live inside `plugins/hub/` as a real file — symlinks/junctions do not survive `git clone`.
 
-**Sync tool:** `tools/generate_codex.py` keeps `codex/agents/*.toml` in sync with `agents/*.md`. Run on every release:
+**Sync tool:** `tools/generate_codex.py` keeps `plugins/hub/agents/*.toml` in sync with `agents/*.md`. Run on every release:
 
 ```bash
 python tools/generate_codex.py          # dry-run, shows diff
@@ -63,7 +65,7 @@ python tools/generate_codex.py --write  # write files
 python tools/generate_codex.py --check  # exit 1 if stale (CI mode)
 ```
 
-Requires Python 3.11+ (uses stdlib `tomllib`). When adding or modifying an agent, run the sync tool — don't hand-edit `codex/agents/`.
+Requires Python 3.11+ (uses stdlib `tomllib`). When adding or modifying an agent, run the sync tool — don't hand-edit `plugins/hub/agents/`.
 
 ### CATALOG.md
 

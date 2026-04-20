@@ -20,16 +20,18 @@ The `name` field in this plugin's manifest is `hub` — that is the `@hub` handl
 
 **AgentHub** — 20 specialist subagents, 42 skills, and 17 workflows for OpenAI Codex.
 
-- `codex/agents/*.toml` — 20 Codex agent definitions
-- `codex/commands/*.md` — 17 workflow templates (invoked via `@hub`, not `/hub:`)
+- `agents/*.toml` — 20 Codex agent definitions
+- `commands/*.md` — 17 workflow templates (invoked via `@hub`, not `/hub:`)
 - `skills/*/SKILL.md` — 42 shared skills (platform-agnostic, also used by Claude Code)
-- `codex/.codex-plugin/plugin.json` — manifest
+- `.codex-plugin/plugin.json` — manifest
+
+All paths above are relative to this plugin's root (`plugins/hub/` in the source repo).
 
 ---
 
 ## Workflow invocation via @hub
 
-When a user types `@hub` followed by a workflow name, read the matching file from `codex/commands/<name>.md` and follow its `## Flow` section. The `$ARGUMENTS` placeholder is replaced with whatever the user typed after the workflow name.
+When a user types `@hub` followed by a workflow name, read the matching file from `commands/<name>.md` (relative to this plugin's root) and follow its `## Flow` section. The `$ARGUMENTS` placeholder is replaced with whatever the user typed after the workflow name.
 
 | User types | Read this file | Description |
 |---|---|---|
