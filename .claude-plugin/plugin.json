@@ -1,6 +1,6 @@
 {
   "name": "hub",
-  "version": "0.4.0",
+  "version": "0.4.4",
   "description": "20 specialist subagents, 42 skills, and 17 slash commands for Claude Code. Approval-first dispatch, live capability discovery, and opt-in usage tracking — all on the user's budget, with the user's consent.",
   "author": {
     "name": "Suyash Bhatkar",
@@ -9,10 +9,6 @@
   "homepage": "https://github.com/SKB3002/agenthub",
   "repository": "https://github.com/SKB3002/agenthub",
   "license": "MIT",
-  "agents": "./claude/agents/",
-  "commands": "./claude/commands/",
-  "skills": "./skills/",
-  "hooks": "./claude/hooks/hooks.json",
   "keywords": [
     "claude-code",
     "claude-code-plugin",

@@ -131,7 +131,7 @@ MoSCoW for this task:
   WON'T   — <explicit out-of-scope guardrails>
 ```
 
-MoSCoW is taken from [claude/agents/product-manager.md](../../claude/agents/product-manager.md) prioritization. Its purpose in the gate is to let the user trim at point-of-approval by picking alternative (b).
+MoSCoW is taken from [agents/product-manager.md](../../agents/product-manager.md) prioritization. Its purpose in the gate is to let the user trim at point-of-approval by picking alternative (b).
 
 ---
 

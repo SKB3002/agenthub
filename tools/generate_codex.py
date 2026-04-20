@@ -2,7 +2,7 @@
 """
 generate_codex.py — Sync agenthub source → codex/ distribution.
 
-Run on every release to keep codex/agents/*.toml in sync with claude/agents/*.md.
+Run on every release to keep codex/agents/*.toml in sync with agents/*.md.
 Skills (skills/*/SKILL.md) are shared verbatim — no conversion needed.
 
 Usage:

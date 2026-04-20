@@ -180,9 +180,9 @@ Dispatch via `Agent(subagent_type="hub:<name>")`. All agents are namespaced `hub
 
 | Primitive | Count | Location |
 |---|---|---|
-| Subagents | 20 | [`claude/agents/`](claude/agents/) (Claude) · [`codex/agents/`](codex/agents/) (Codex) |
+| Subagents | 20 | [`agents/`](agents/) (Claude) · [`codex/agents/`](codex/agents/) (Codex) |
 | Skills | 42 | [`skills/`](skills/) — shared by both platforms |
-| Slash commands | 17 | [`claude/commands/`](claude/commands/) (Claude) · [`codex/commands/`](codex/commands/) (Codex) |
+| Slash commands | 17 | [`commands/`](commands/) (Claude) · [`codex/commands/`](codex/commands/) (Codex) |
 | Validation scripts | 16 | `skills/<skill>/scripts/` (co-located with the skill) |
 | MCP servers | 5 pre-validated, opt-in | [`claude/mcp.example.json`](claude/mcp.example.json) + [`claude/mcp-servers.md`](claude/mcp-servers.md) |
 | Hooks | opt-in scaffold | [`claude/hooks/`](claude/hooks/) |

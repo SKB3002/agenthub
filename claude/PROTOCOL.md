@@ -77,7 +77,7 @@ Before responding to any request, analyse and select the best agent(s).
 | # | Check | If unchecked |
 |---|-------|--------------|
 | 1 | Did I identify the correct agent for this domain? | STOP. Analyse the request domain first. |
-| 2 | Did I read the agent's `.md` (or recall its rules)? | STOP. Open [claude/agents/](claude/agents/). |
+| 2 | Did I read the agent's `.md` (or recall its rules)? | STOP. Open [agents/](agents/). |
 | 3 | Did I announce `🤖 Applying knowledge of @[agent]...`? | STOP. Add the announcement. |
 | 4 | Did I load required skills from the agent's frontmatter? | STOP. Check `skills:` and read them. |
 
@@ -301,8 +301,8 @@ Design rules live in the specialist agents, not here.
 
 | Task | Read |
 |------|------|
-| Web UI/UX | [claude/agents/frontend-specialist.md](claude/agents/frontend-specialist.md) |
-| Mobile UI/UX | [claude/agents/mobile-developer.md](claude/agents/mobile-developer.md) |
+| Web UI/UX | [agents/frontend-specialist.md](agents/frontend-specialist.md) |
+| Mobile UI/UX | [agents/mobile-developer.md](agents/mobile-developer.md) |
 
 These agents own:
 

@@ -110,6 +110,6 @@ See [schema.md](schema.md) for the authoritative YAML schema + worked examples.
 
 | Need | Go to |
 |---|---|
-| Inspect or write instincts | [`/hub:instincts`](../../claude/commands/instincts.md) |
+| Inspect or write instincts | [`/hub:instincts`](../../commands/instincts.md) |
 | YAML reference | [schema.md](schema.md) |
 | "Should I codify this as a skill instead?" | [`skills/plan-writing/SKILL.md`](../plan-writing/SKILL.md) — durable cross-project patterns belong in skills, not instincts |

@@ -18,7 +18,7 @@ Thanks for your interest in improving AgentHub. All contributions are welcome â€
    ```bash
    claude --plugin-dir ./agenthub
    ```
-4. If you modified any agent in `claude/agents/`, sync the Codex TOML files:
+4. If you modified any agent in `agents/`, sync the Codex TOML files:
    ```bash
    python tools/generate_codex.py --write
    ```
@@ -29,8 +29,8 @@ Thanks for your interest in improving AgentHub. All contributions are welcome â€
 
 | Primitive | Claude Code path | Codex path |
 |---|---|---|
-| Agents | `claude/agents/*.md` (YAML frontmatter) | `codex/agents/*.toml` (auto-generated) |
-| Commands | `claude/commands/*.md` | `codex/commands/*.md` (manually kept in sync) |
+| Agents | `agents/*.md` (YAML frontmatter) | `codex/agents/*.toml` (auto-generated) |
+| Commands | `commands/*.md` | `codex/commands/*.md` (manually kept in sync) |
 | Skills | `skills/<name>/SKILL.md` | same â€” skills are shared |
 | Validation scripts | `skills/<name>/scripts/*.py` | same â€” shared |
 | Hooks | `claude/hooks/` | n/a |

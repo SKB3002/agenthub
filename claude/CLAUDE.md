@@ -40,22 +40,22 @@ Script conventions (all 16 already comply — match them for new ones):
 
 Four top-level primitive folders, each with a rigid convention. Do not reorganize them — `PROTOCOL.md` and the plugin loader both address files by path.
 
-- **[claude/agents/](claude/agents/)** — flat `.md` files, one per subagent. YAML frontmatter is load-bearing: `name`, `description`, `tools`, `model`, `skills`. The `skills:` list drives the *modular skill loading* flow described below.
+- **[agents/](agents/)** — flat `.md` files, one per subagent. YAML frontmatter is load-bearing: `name`, `description`, `tools`, `model`, `skills`. The `skills:` list drives the *modular skill loading* flow described below.
 - **[skills/](skills/)** — one folder per skill, entry point is `SKILL.md`. Optional sub-reference files (e.g., `rest.md`, `graphql.md`) are pulled in selectively. Validation scripts for a skill live **inside** that skill's folder at `skills/<skill>/scripts/` — they are co-located on purpose so the skill owns its own tooling.
-- **[claude/commands/](claude/commands/)** — flat `.md` files. Claude Code auto-namespaces them as `/hub:<filename>` (the `hub` prefix comes from the `name` field in [.claude-plugin/plugin.json](.claude-plugin/plugin.json)). Do **not** prefix the filename yourself.
+- **[commands/](commands/)** — flat `.md` files. Claude Code auto-namespaces them as `/hub:<filename>` (the `hub` prefix comes from the `name` field in [.claude-plugin/plugin.json](.claude-plugin/plugin.json)). Do **not** prefix the filename yourself.
 - **[claude/hooks/](claude/hooks/)** — ships `hooks.json` intentionally empty. Real examples live in `hooks.example.json`; users copy entries in to opt in. Never auto-enable anything here.
 
 ### The `codex/` dual-platform distribution
 
 The repo ships for two platforms. `codex/` is a parallel distribution for OpenAI Codex:
 
-- `codex/agents/*.toml` — TOML equivalents of `claude/agents/*.md` (YAML→TOML conversion, Claude-specific `tools:` field dropped)
-- `codex/commands/*.md` — command files mirrored from `claude/commands/`
+- `codex/agents/*.toml` — TOML equivalents of `agents/*.md` (YAML→TOML conversion, Claude-specific `tools:` field dropped)
+- `codex/commands/*.md` — command files mirrored from `commands/`
 - `codex/AGENTS.md` — the Codex equivalent of `PROTOCOL.md`
 
 **Skills are shared verbatim** — `skills/*/SKILL.md` is read directly by both platforms, no conversion needed.
 
-**Sync tool:** `tools/generate_codex.py` keeps `codex/agents/*.toml` in sync with `claude/agents/*.md`. Run on every release:
+**Sync tool:** `tools/generate_codex.py` keeps `codex/agents/*.toml` in sync with `agents/*.md`. Run on every release:
 
 ```bash
 python tools/generate_codex.py          # dry-run, shows diff
@@ -91,16 +91,16 @@ P0 ([PROTOCOL.md](PROTOCOL.md)) > P1 (agent `.md`) > P2 (skill `SKILL.md`). When
 ## Conventions that matter for edits
 
 - **Descriptions tell the model *when* to use the thing, not *what* it does.** This applies to agent, skill, and slash-command frontmatter — it is how Claude Code's auto-routing picks them.
-- **Subagents are personas with a philosophy**, not feature lists. See [claude/agents/orchestrator.md](claude/agents/orchestrator.md) for the established voice.
+- **Subagents are personas with a philosophy**, not feature lists. See [agents/orchestrator.md](agents/orchestrator.md) for the established voice.
 - **Slash commands are not "modes."** The kit deliberately has no mode switcher — intent is expressed by command choice ([PROTOCOL.md §5 slash-command mapping](PROTOCOL.md)).
 - **Kit augments, never shadows, Claude Code built-ins.** Agents delegate surveys to the built-in `Explore` agent, step-by-step design to `Plan`, and open-ended research to `general-purpose`. The `security-auditor` agent wraps `/security-review`; `clean-code` skill references `/simplify`; `llm-observability` assumes the built-in `claude-api` skill. When editing, preserve these delegations rather than reimplementing them.
 - **When adding a validation script**, also register it in the script table in [PROTOCOL.md §5](PROTOCOL.md) and (if it should run automatically for someone) in [claude/hooks/hooks.example.json](claude/hooks/hooks.example.json) — never in `hooks.json`.
-- **Dependent-file awareness:** `claude/agents/`, `skills/`, `claude/commands/`, `PROTOCOL.md`, and `README.md` cross-reference each other by relative path. When renaming or moving a file, grep the repo for the old path and update every reference.
+- **Dependent-file awareness:** `agents/`, `skills/`, `commands/`, `PROTOCOL.md`, and `README.md` cross-reference each other by relative path. When renaming or moving a file, grep the repo for the old path and update every reference.
 - **Slash-command files use `$ARGUMENTS`** as the user-input placeholder and require `description:` + `argument-hint:` frontmatter. They are stack-aware — `/test` branches pytest vs. `npm test`, `/preview` branches uvicorn vs. `npm run dev`, `/deploy` branches on detected stack. Preserve that branching when editing.
 - **`/plan` emits `docs/PLAN-{slug}.md`** — slug is derived from user input, ≤30 chars, lowercase, hyphens.
 - **`/orchestrate` requires ≥3 agents and 2-phase execution** (Plan → user approval → Implement) and enforces a *Context Passing MANDATORY* rule: each parallel agent must be handed the full relevant context in its prompt because parallel agents cannot see each other's work. Don't edit out that section.
 - **Approval-first dispatch (v0.3+).** Every `/hub:*` command declares a tier (`LIGHT` / `MEDIUM` / `HEAVY`) in its frontmatter. MEDIUM and HEAVY commands load [skills/approval-gate/SKILL.md](skills/approval-gate/SKILL.md) and render the gate before any `Agent()` dispatch or file write. LIGHT commands run directly. Every run — gated, bypassed (`--yes`/`-y`), or cancelled — appends one entry to `.hub/usage.json` (gitignored). When adding a new command, pick its tier honestly against [skills/approval-gate/tiers.md](skills/approval-gate/tiers.md); do not tier-inflate for importance or tier-deflate to skip the gate.
-- **Explicit `Agent()` dispatch, not prose.** Commands that delegate to an agent must do it via a real `Agent(subagent_type="hub:<name>", prompt=…)` call in the command body — not by saying "apply the X persona". See [claude/commands/orchestrate.md](claude/commands/orchestrate.md) and the Phase 1c rewrites of `/hub:debug`, `/hub:plan`, `/hub:create`, `/hub:enhance`, `/hub:deploy`, `/hub:test`, `/hub:brainstorm`, `/hub:ui-ux-pro-max` for the canonical pattern.
+- **Explicit `Agent()` dispatch, not prose.** Commands that delegate to an agent must do it via a real `Agent(subagent_type="hub:<name>", prompt=…)` call in the command body — not by saying "apply the X persona". See [commands/orchestrate.md](commands/orchestrate.md) and the Phase 1c rewrites of `/hub:debug`, `/hub:plan`, `/hub:create`, `/hub:enhance`, `/hub:deploy`, `/hub:test`, `/hub:brainstorm`, `/hub:ui-ux-pro-max` for the canonical pattern.
 - **Honesty contract for costs.** Anywhere the kit shows a token count, prefix `~`. Never convert to dollars. Never fabricate remaining-quota or reset-timestamp numbers — Claude Code doesn't expose them, so we don't invent them.
 
 ## Gotchas (landmines from the port)
