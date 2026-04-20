@@ -44,3 +44,6 @@ build/
 # .hub/instincts.yaml — team preferences; git-tracked by default per skills/instincts/SKILL.md
 .hub/
 !.hub/instincts.yaml
+
+# codex/skills is a Windows junction pointing to skills/ — not committable
+codex/skills
