@@ -27,7 +27,7 @@ AgentHub gives you a curated, MIT-licensed answer. One install, both ecosystems.
 
 ---
 
-## Install
+## Installation Guide
 
 ### Claude Code
 
@@ -36,16 +36,9 @@ AgentHub gives you a curated, MIT-licensed answer. One install, both ecosystems.
 1. Press `/` in the Claude Code sidebar → **Manage Plugins** → **Marketplace**
 2. Paste `https://github.com/SKB3002/agenthub` and confirm
 3. Go to **Plugins**, search **hub**, and click **Install**
-
-Run `/hub:help` to verify — it will list all 17 commands, 20 agents, and 42 skills.
-
-**CLI:**
-
-```bash
-claude plugin install https://github.com/SKB3002/agenthub
-```
-
-Then search **hub** in `/plugin` and install.
+4. Press Ctrl+Shift+P -> Reload Window
+   
+Run `/hub:help` to verify — it will list all 17 commands, 20 agents, and 42 skills or press '/' and manually check new loaded commands
 
 ---
 
@@ -247,7 +240,7 @@ PRs welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). Whether you're adding a sub
 
 ## Credits
 
-- Built on [antigravity-kit](https://github.com/vudovn/antigravity-kit) by [@vudovn](https://github.com/vudovn) — the structural blueprint. Licensed MIT.
+- This Repo is Built based on the [antigravity-kit](https://github.com/vudovn/antigravity-kit) by [@vudovn](https://github.com/vudovn) — the structural blueprint. Licensed MIT.
 - Skill content draws from Vercel's React & Web Design Guidelines, OWASP, Core Web Vitals, and the broader open-source community.
 
 ---
