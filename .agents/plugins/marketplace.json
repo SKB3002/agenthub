@@ -1,0 +1,12 @@
+{
+  "name": "agenthub",
+  "interface": { "displayName": "AgentHub" },
+  "plugins": [
+    {
+      "name": "hub",
+      "source": { "source": "local", "path": "./codex" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}
