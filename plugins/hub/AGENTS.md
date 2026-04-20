@@ -4,13 +4,24 @@
 
 ---
 
+## Invocation syntax (CRITICAL)
+
+**In Codex, this plugin is invoked with `@hub <command>` — never `/hub:<command>`.**
+
+- ✅ Correct: `@hub brainstorm`, `@hub debug`, `@hub plan`, `@hub help agents`
+- ❌ Wrong: `/hub:brainstorm`, `/hub:debug` — the `/` prefix is a Codex built-in and rejects plugin commands
+
+**When writing responses to the user, you MUST always suggest commands as `@hub <name>`.** Never emit `/hub:` in your output, even though the skill files below (shared with Claude Code) use that form internally. Translate `/hub:<x>` → `@hub <x>` whenever you mention a command to the user.
+
+---
+
 ## How to invoke this plugin
 
 **Primary:** Type `@hub` in the Codex composer. Codex will show the plugin and its bundled skills via autocomplete.
 
 **Skills picker:** Type `$` in the composer to open the skill picker. Hub skills appear as `$hub-debug`, `$hub-plan`, etc.
 
-**Do NOT use `/hub:*`** — the `/` prefix is reserved for Codex built-in commands. Plugin commands typed as `/hub:debug` will be rejected as unknown commands by Codex.
+**Do NOT use `/hub:*` (slash prefix)** — the `/` prefix is reserved for Codex built-in commands. Plugin commands typed as `/hub:debug` will be rejected as unknown commands by Codex. Always use `@hub debug`, `@hub plan`, etc.
 
 The `name` field in this plugin's manifest is `hub` — that is the `@hub` handle.
 
@@ -21,7 +32,7 @@ The `name` field in this plugin's manifest is `hub` — that is the `@hub` handl
 **AgentHub** — 20 specialist subagents, 42 skills, and 17 workflows for OpenAI Codex.
 
 - `agents/*.toml` — 20 Codex agent definitions
-- `commands/*.md` — 17 workflow templates (invoked via `@hub`, not `/hub:`)
+- `commands/*.md` — 17 workflow templates (invoked via `@hub`, never `/hub:`)
 - `skills/*/SKILL.md` — 42 shared skills (platform-agnostic, also used by Claude Code)
 - `.codex-plugin/plugin.json` — manifest
 

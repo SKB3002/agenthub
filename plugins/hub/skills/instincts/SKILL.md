@@ -1,12 +1,12 @@
 ---
 name: instincts
-description: Project-scoped learned preferences captured via /hub:instincts promote. Load this skill when an agent needs to consult project-specific conventions that aren't obvious from the code. Never auto-captures — user explicitly approves every entry.
+description: Project-scoped learned preferences captured via @hub instincts promote. Load this skill when an agent needs to consult project-specific conventions that aren't obvious from the code. Never auto-captures — user explicitly approves every entry.
 allowed-tools: Read, Glob, Write, Edit, Bash
 ---
 
 # Instincts — learned project preferences
 
-> **Contract:** instincts are user-authored. No silent capture, no background agent, no LLM fee on idle. An instinct exists only because the user ran `/hub:instincts promote` and approved it. The kit's job is to store them faithfully and make them discoverable — nothing else.
+> **Contract:** instincts are user-authored. No silent capture, no background agent, no LLM fee on idle. An instinct exists only because the user ran `@hub instincts promote` and approved it. The kit's job is to store them faithfully and make them discoverable — nothing else.
 
 See [schema.md](schema.md) for the YAML reference.
 
@@ -42,7 +42,7 @@ Do **not** load this skill on every agent dispatch. Loading it means reading the
 | project | `<project-root>/.hub/instincts.yaml`      | **Yes**     | Team-visible preferences for this repo |
 | global  | `~/.claude/kit/instincts.yaml`            | No          | Cross-project preferences — user's private machine |
 
-**Why project instincts are git-tracked by default:** team visibility is the feature. A new engineer clones the repo and `/hub:instincts show` reveals the preferences the team has already encoded. If a user wants privacy, they add `.hub/` to `.gitignore` explicitly.
+**Why project instincts are git-tracked by default:** team visibility is the feature. A new engineer clones the repo and `@hub instincts show` reveals the preferences the team has already encoded. If a user wants privacy, they add `.hub/` to `.gitignore` explicitly.
 
 **Why global instincts are NOT git-tracked:** they're user-machine scope by design. Never synced, never pushed. A promotion to global requires evidence from ≥2 projects to prevent one repo's preferences from bleeding into all future work.
 
@@ -62,7 +62,7 @@ When an agent loads this skill:
 
 ## 5. Confidence and promotion
 
-Confidence is a number 0.0–1.0 assigned by `/hub:instincts promote` based on session evidence:
+Confidence is a number 0.0–1.0 assigned by `@hub instincts promote` based on session evidence:
 
 | Observations in session | Confidence starting value |
 |---|---|
@@ -84,15 +84,15 @@ Confidence is not magic — it's a heuristic. The user's approval during `promot
 
 Instincts do **not** auto-expire. The file is small, plain text, and the user can `clear` an entry in one command. Automatic decay ("if an instinct hasn't been cited in 90 days, drop it") is rejected — silent behaviour is exactly what this kit avoids.
 
-The `last_seen` field exists for the user to eyeball staleness during `/hub:instincts show`, not for automated pruning.
+The `last_seen` field exists for the user to eyeball staleness during `@hub instincts show`, not for automated pruning.
 
 ---
 
 ## 7. Anti-patterns (never do)
 
-- ❌ Auto-capture without `/hub:instincts promote` approval
+- ❌ Auto-capture without `@hub instincts promote` approval
 - ❌ Dispatch a background Haiku agent to watch tool calls
-- ❌ Write to `.hub/instincts.yaml` from anywhere except `/hub:instincts promote`
+- ❌ Write to `.hub/instincts.yaml` from anywhere except `@hub instincts promote`
 - ❌ Blindly apply an instinct that doesn't fit the current situation
 - ❌ Hide instinct influence from the user — always surface when one steered a decision
 - ❌ Auto-promote from project to global — cross-project evidence is a hard requirement
@@ -110,6 +110,6 @@ See [schema.md](schema.md) for the authoritative YAML schema + worked examples.
 
 | Need | Go to |
 |---|---|
-| Inspect or write instincts | [`/hub:instincts`](../../commands/instincts.md) |
+| Inspect or write instincts | [`@hub instincts`](../../commands/instincts.md) |
 | YAML reference | [schema.md](schema.md) |
 | "Should I codify this as a skill instead?" | [`skills/plan-writing/SKILL.md`](../plan-writing/SKILL.md) — durable cross-project patterns belong in skills, not instincts |

@@ -82,25 +82,25 @@ Ranges in the current command frontmatter come from runs we captured during the 
 
 | Command | Min observed | Median | Max observed | Tier |
 |---|---|---|---|---|
-| `/hub:status`         | ~3k   | ~5k   | ~9k    | LIGHT |
-| `/hub:preview check`  | ~2k   | ~4k   | ~7k    | LIGHT |
-| `/hub:debug`          | ~14k  | ~22k  | ~41k   | MEDIUM |
-| `/hub:test`           | ~12k  | ~28k  | ~58k   | MEDIUM |
-| `/hub:plan`           | ~18k  | ~31k  | ~48k   | MEDIUM |
-| `/hub:brainstorm`     | ~9k   | ~19k  | ~29k   | MEDIUM |
-| `/hub:enhance`        | ~42k  | ~90k  | ~160k  | HEAVY |
-| `/hub:create`         | ~78k  | ~140k | ~205k  | HEAVY |
-| `/hub:deploy`         | ~38k  | ~65k  | ~105k  | HEAVY |
-| `/hub:ui-ux-pro-max`  | ~55k  | ~110k | ~180k  | HEAVY |
-| `/hub:orchestrate`    | ~85k  | ~160k | ~260k  | HEAVY |
+| `@hub status`         | ~3k   | ~5k   | ~9k    | LIGHT |
+| `@hub preview check`  | ~2k   | ~4k   | ~7k    | LIGHT |
+| `@hub debug`          | ~14k  | ~22k  | ~41k   | MEDIUM |
+| `@hub test`           | ~12k  | ~28k  | ~58k   | MEDIUM |
+| `@hub plan`           | ~18k  | ~31k  | ~48k   | MEDIUM |
+| `@hub brainstorm`     | ~9k   | ~19k  | ~29k   | MEDIUM |
+| `@hub enhance`        | ~42k  | ~90k  | ~160k  | HEAVY |
+| `@hub create`         | ~78k  | ~140k | ~205k  | HEAVY |
+| `@hub deploy`         | ~38k  | ~65k  | ~105k  | HEAVY |
+| `@hub ui-ux-pro-max`  | ~55k  | ~110k | ~180k  | HEAVY |
+| `@hub orchestrate`    | ~85k  | ~160k | ~260k  | HEAVY |
 
-These are working estimates, not authoritative commitments. After v0.3.0 ships, `/hub:ledger by-tier` in real user projects will refine these ranges. A contributor PR that updates this table with their own measurements (and a note on methodology) is welcome.
+These are working estimates, not authoritative commitments. After v0.3.0 ships, `@hub ledger by-tier` in real user projects will refine these ranges. A contributor PR that updates this table with their own measurements (and a note on methodology) is welcome.
 
 ---
 
 ## 4. Worked example
 
-Imagine `/hub:create "todo app with auth"` runs with:
+Imagine `@hub create "todo app with auth"` runs with:
 
 | Step | Chars in response | Tokens (÷4) |
 |---|---|---|
@@ -119,7 +119,7 @@ Declared tier HEAVY, range 80k–200k → **observed: ~92k (in-tier ✓)** in th
 
 ## 5. How the tier gets promoted/demoted
 
-A command's tier is not fixed forever. If `/hub:ledger by-tier` shows a command's observed tokens consistently land in a different tier than declared, the command's frontmatter should be updated. Rough rule:
+A command's tier is not fixed forever. If `@hub ledger by-tier` shows a command's observed tokens consistently land in a different tier than declared, the command's frontmatter should be updated. Rough rule:
 
 - **≥ 30% of runs over upper bound** → bump tier up (MEDIUM → HEAVY)
 - **100% of runs under lower bound by ≥ 40%** → bump tier down (HEAVY → MEDIUM)

@@ -31,7 +31,7 @@ The file is a YAML sequence of instinct entries. No wrapper object, no version h
 | `trigger`    | yes | When the instinct applies. One clause. Good: "writing Python HTTP client code". Bad: "all the time". |
 | `action`     | yes | What to do. Imperative. Good: "use httpx, not requests". Bad: "consider httpx maybe". |
 | `domain`     | yes | One of: `python-backend`, `frontend-react`, `frontend-vue`, `mobile-ios`, `mobile-android`, `devops`, `database`, `testing`, `docs`, or a custom slug. Agents filter by this. |
-| `confidence` | yes | 0.0–1.0 float. Minted by `/hub:instincts promote` from session evidence (see SKILL.md §5). |
+| `confidence` | yes | 0.0–1.0 float. Minted by `@hub instincts promote` from session evidence (see SKILL.md §5). |
 | `evidence`   | yes | ≥1 short note. Evidence is user-readable — aim for something that still makes sense in six months. |
 | `scope`      | yes | `project` or `global`. Must match the file the entry lives in. |
 | `project_id` | conditional | Required on global entries (to show which project(s) sourced it). Optional on project entries. |
@@ -97,7 +97,7 @@ Note: global entries only come into being when the same `trigger` + `action` exi
 
 ---
 
-## Invariants (validated by `/hub:instincts promote` at write time)
+## Invariants (validated by `@hub instincts promote` at write time)
 
 1. `id` is unique within the file
 2. `confidence` ∈ [0.0, 1.0]
@@ -106,7 +106,7 @@ Note: global entries only come into being when the same `trigger` + `action` exi
 5. `evidence` is non-empty
 6. YAML is valid (no tabs, no duplicate keys)
 
-If any invariant is violated at read time, `/hub:instincts show` reports the specific entry and refuses to render it — but does not modify the file. User fixes manually.
+If any invariant is violated at read time, `@hub instincts show` reports the specific entry and refuses to render it — but does not modify the file. User fixes manually.
 
 ---
 
@@ -114,9 +114,9 @@ If any invariant is violated at read time, `/hub:instincts show` reports the spe
 
 Safe. The format is plain YAML. Rules:
 
-- Don't delete entries you want to keep — use `/hub:instincts clear <id>` or just remove the YAML block
+- Don't delete entries you want to keep — use `@hub instincts clear <id>` or just remove the YAML block
 - Don't raise `confidence` above what the evidence supports — defeats the purpose
 - If you edit, bump `last_seen` to today
 - Don't share the global file via dotfiles repos that sync across machines — it's machine-scope by design
 
-If you change the file and it breaks YAML, `/hub:instincts show` will tell you which line. No silent corruption.
+If you change the file and it breaks YAML, `@hub instincts show` will tell you which line. No silent corruption.

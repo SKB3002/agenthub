@@ -10,7 +10,7 @@ The Codex plugin lives at `plugins/hub/` in this repo. The plugin name is `hub`.
 |---|---|
 | `plugins/hub/.codex-plugin/plugin.json` | Manifest — name `hub` |
 | `plugins/hub/agents/*.toml` | 20 agent definitions |
-| `plugins/hub/commands/*.md` | 17 workflow templates (invoked via `@hub`, not `/hub:`) |
+| `plugins/hub/commands/*.md` | 17 workflow templates (invoked via `@hub`, never `/hub:`) |
 | `plugins/hub/skills/*/SKILL.md` | 42 skills |
 | `plugins/hub/AGENTS.md` | Session protocol — loaded automatically at start |
 | `.agents/plugins/marketplace.json` | Marketplace manifest at repo root — points Codex at `./plugins/hub` |

@@ -1,12 +1,12 @@
 ---
 name: approval-gate
-description: User-approval gate that every MEDIUM and HEAVY /hub:* command must render before dispatching agents. Handles tier lookup from command frontmatter, gate rendering with alternatives, reading the optional budget file, appending to the project usage log, and gracefully handling --yes bypass. Load this skill from any command that dispatches agents or writes files.
+description: User-approval gate that every MEDIUM and HEAVY @hub * command must render before dispatching agents. Handles tier lookup from command frontmatter, gate rendering with alternatives, reading the optional budget file, appending to the project usage log, and gracefully handling --yes bypass. Load this skill from any command that dispatches agents or writes files.
 allowed-tools: Read, Glob, Write, Edit, Bash
 ---
 
 # Approval Gate — pre-dispatch user control
 
-> **Contract:** no MEDIUM or HEAVY `/hub:*` command dispatches an agent or writes a file until the user has approved this gate (or passed `--yes`/`-y`). LIGHT commands never gate.
+> **Contract:** no MEDIUM or HEAVY `@hub *` command dispatches an agent or writes a file until the user has approved this gate (or passed `--yes`/`-y`). LIGHT commands never gate.
 
 See [tiers.md](tiers.md) for the tier taxonomy and the token-estimation formula.
 
@@ -14,7 +14,7 @@ See [tiers.md](tiers.md) for the tier taxonomy and the token-estimation formula.
 
 ## 1. When to load this skill
 
-Load from the body of any `/hub:*` command whose frontmatter declares `tier: MEDIUM` or `tier: HEAVY`.
+Load from the body of any `@hub *` command whose frontmatter declares `tier: MEDIUM` or `tier: HEAVY`.
 Do **not** load for `tier: LIGHT` — those commands run directly.
 
 Typical invocation from a command body:
@@ -36,7 +36,7 @@ Typical invocation from a command body:
 
 | Input | How the command produces it |
 |---|---|
-| `command_name` | Literal string, e.g. `/hub:create` |
+| `command_name` | Literal string, e.g. `@hub create` |
 | `user_args` | The original `$ARGUMENTS` string |
 | `planned_agents` | List of `hub:<name>` the command intends to dispatch, in order |
 | `planned_skills` | List of `hub:<name>` skills likely to load |
@@ -54,7 +54,7 @@ Typical invocation from a command body:
 ### 3.1 Prefix rule (MANDATORY)
 
 Every primitive mentioned in the gate carries the `hub:` prefix:
-- Commands: `/hub:<name>`
+- Commands: `@hub <name>`
 - Agents: `hub:<name>`
 - Skills: `hub:<name>`
 
@@ -63,7 +63,7 @@ This matches the README-wide convention. Never strip the prefix in gate output, 
 ### 3.2 MEDIUM gate — one-liner + prompt
 
 ```
-⚖️  /hub:<cmd> "<args>"
+⚖️  @hub <cmd> "<args>"
     → <agent list, hub: prefixed, comma-separated>  (+ <skill list>)
     Tier: MEDIUM · <estimated-tokens> · writes <N> files
     Proceed? (y/n/tweak)
@@ -75,7 +75,7 @@ Rationale: MEDIUM commands are frequent; the user is typically in flow. One line
 
 Render the 8 sections below, in order:
 
-1. **Header** — `⚖️  Kit dispatch preview — /hub:<cmd>`
+1. **Header** — `⚖️  Kit dispatch preview — @hub <cmd>`
 2. **Task** — the `$ARGUMENTS` verbatim, quoted
 3. **Planned agents** — each on its own line, with the order-of-dispatch and a 3–6 word purpose suffix
 4. **Planned skills** — comma-separated, one line
@@ -137,7 +137,7 @@ MoSCoW is taken from [agents/product-manager.md](../../agents/product-manager.md
 
 ## 5. Post-run ledger (fires after every run, gated or not)
 
-Every `/hub:*` run appends one entry to `.hub/usage.json` in the project root. This is how the kit keeps an honest record of cost.
+Every `@hub *` run appends one entry to `.hub/usage.json` in the project root. This is how the kit keeps an honest record of cost.
 
 ### 5.1 File location and creation
 
@@ -153,7 +153,7 @@ See [../../docs/PLAN-v0.3-user-approval-economy.md §6.2](../../docs/PLAN-v0.3-u
 id                       e.g. "r_2026-04-19_001"  (date + sequence)
 started_at, ended_at     ISO-8601 UTC
 duration_seconds         integer
-command                  "/hub:<name>"
+command                  "@hub <name>"
 args                     string
 tier_declared            from frontmatter
 tier_observed            recomputed from actual dispatch
@@ -184,7 +184,7 @@ If the user replies `cancel`, append an entry with:
 - `approx_total_tokens: 0`
 - `notes: "cancelled at gate"`
 
-This is what lets `/hub:ledger weekly` show "3 runs cancelled — estimated saved ~350k tokens" — the savings line is computed from the declared `estimated_tokens` of cancelled HEAVY runs.
+This is what lets `@hub ledger weekly` show "3 runs cancelled — estimated saved ~350k tokens" — the savings line is computed from the declared `estimated_tokens` of cancelled HEAVY runs.
 
 ---
 
