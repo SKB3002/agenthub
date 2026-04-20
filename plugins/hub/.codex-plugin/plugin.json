@@ -1,0 +1,35 @@
+{
+  "name": "hub",
+  "version": "0.4.3",
+  "description": "20 specialist subagents, 42 skills, and 17 workflows for OpenAI Codex. Invoke with @hub. Approval-first dispatch, live capability discovery, and opt-in usage tracking — all on the user's budget, with the user's consent.",
+  "author": {
+    "name": "Suyash Bhatkar",
+    "email": "info@apguru.com",
+    "url": "https://github.com/SKB3002"
+  },
+  "homepage": "https://github.com/SKB3002/agenthub",
+  "repository": "https://github.com/SKB3002/agenthub",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "AgentHub",
+    "shortDescription": "20 agents, 42 skills, 17 workflows",
+    "developerName": "Suyash Bhatkar",
+    "category": "Productivity",
+    "defaultPrompt": [
+      "@hub debug <symptom or error>",
+      "@hub create <what to build>",
+      "@hub plan <feature to plan>"
+    ]
+  },
+  "keywords": [
+    "codex",
+    "codex-plugin",
+    "agenthub",
+    "agents",
+    "skills",
+    "workflows",
+    "developer-tools",
+    "ai-agents"
+  ]
+}

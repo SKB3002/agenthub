@@ -1,14 +1,15 @@
 # AgentHub
 
-> **20 specialist subagents · 42 skills · 17 slash commands** — works on both **Claude Code** and **OpenAI Codex**. One repo, two platforms, shared core.
+> **20 specialist subagents · 42 skills · 17 workflows** — works on both **Claude Code** and **OpenAI Codex**. One repo, two platforms, shared core.
 
 AgentHub gives your AI coding sessions an instant upgrade: domain experts that activate automatically, deep knowledge modules loaded on demand, and workflow commands that orchestrate entire feature builds — all on your budget, with your consent.
 
-| Platform | Manifest | Agents | Commands | Protocol |
+| Platform | Invocation | Manifest | Skills | Protocol |
 |---|---|---|---|---|
-| Claude Code | `.claude-plugin/plugin.json` | `claude/agents/*.md` (YAML) | `claude/commands/*.md` | `claude/PROTOCOL.md` |
-| OpenAI Codex | `codex/.codex-plugin/plugin.json` | `codex/agents/*.toml` | `codex/commands/*.md` | `codex/AGENTS.md` |
-| **Shared** | — | — | `CATALOG.md` | `skills/*/SKILL.md` |
+| Claude Code | `/hub:<command>` | `.claude-plugin/plugin.json` | `skills/*/SKILL.md` | `claude/PROTOCOL.md` |
+| OpenAI Codex | `@hub <workflow>` | `plugins/hub/.codex-plugin/plugin.json` | `skills/*/SKILL.md` | `plugins/hub/AGENTS.md` |
+
+> **Platform difference:** Claude Code uses `/hub:` slash commands. Codex uses `@hub` mentions. The `/` prefix is reserved for Codex built-ins — typing `/hub:debug` in Codex will be rejected. Always use `@hub debug` in Codex.
 
 `tools/generate_codex.py` keeps the Codex agent TOML files in sync with the Claude source on every release.
 
@@ -62,10 +63,10 @@ Run `/hub:help` to verify the plugin loaded — it will show all 17 commands, 20
 
 ```bash
 git clone https://github.com/SKB3002/agenthub.git
-codex plugin install ./agenthub/codex
+codex marketplace add ./agenthub
 ```
 
-> **Important:** install from `./agenthub/codex`, not `./agenthub` — the Codex manifest is inside the `codex/` subfolder.
+> **Important:** add the repo root, not a subfolder — the marketplace manifest is at `.agents/plugins/marketplace.json` inside the repo, which points Codex to the plugin at `plugins/hub/`.
 
 Restart Codex and type `@hub help` to verify. **Use `@hub` to invoke, not `/hub:`** — the `/` prefix is reserved for Codex built-in commands and will reject plugin workflows.
 
@@ -76,35 +77,20 @@ Restart Codex and type `@hub help` to verify. **Use `@hub` to invoke, not `/hub:
 git clone https://github.com/SKB3002/agenthub.git ~/dev/agenthub   # macOS/Linux
 git clone https://github.com/SKB3002/agenthub.git C:\dev\agenthub  # Windows
 
-# 2. Create a stable pointer named "hub" to the codex/ subfolder
-ln -s ~/dev/agenthub/codex ~/plugins/hub                           # macOS/Linux
-New-Item -ItemType Junction -Path ~\plugins\hub -Target C:\dev\agenthub\codex  # Windows (PowerShell)
+# 2. Register the marketplace
+codex marketplace add ~/dev/agenthub        # macOS/Linux
+codex marketplace add C:\dev\agenthub       # Windows
 ```
 
-Then create `~/.agents/plugins/marketplace.json`:
-
-```json
-{
-  "name": "My Plugins",
-  "interface": { "displayName": "My Plugins" },
-  "plugins": [
-    {
-      "name": "hub",
-      "source": { "source": "local", "path": "./plugins/hub" },
-      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
-      "category": "Productivity"
-    }
-  ]
-}
-```
-
-To update later: `git pull` inside the cloned repo — no reinstall needed.
+Codex reads `<repo>/.agents/plugins/marketplace.json` and installs the `hub` plugin from `plugins/hub/`. To update later: `git pull` inside the cloned repo — no reinstall needed.
 
 Full install guide: [`codex/PUBLISH.md`](codex/PUBLISH.md)
 
 ---
 
 ## Recommended workflow
+
+### Claude Code (`/hub:` commands)
 
 ```
 1. /hub:brainstorm <idea>        — explore options before writing any code  (MEDIUM)
@@ -119,31 +105,48 @@ Full install guide: [`codex/PUBLISH.md`](codex/PUBLISH.md)
 
 **Sprinting on a bug?** `/hub:debug` → `/hub:test` → done.
 
+### OpenAI Codex (`@hub` mentions)
+
+```
+1. @hub brainstorm <idea>        — explore options before writing any code
+2. @hub plan <feature>           — turn the chosen direction into a plan file
+3. @hub create <app>             — scaffold a greenfield app
+   or @hub enhance <change>      — add/update features in an existing app
+4. @hub test generate <module>   — generate tests for the new code
+   or @hub test                  — run existing tests
+5. @hub deploy staging           — pre-flight + deploy
+   then @hub deploy production
+```
+
+**Sprinting on a bug?** `@hub debug` → `@hub test` → done.
+
 Every MEDIUM/HEAVY command renders an approval gate before dispatching agents — you always see what will run and can cancel or pick a lighter alternative. Pass `--yes` / `-y` to bypass.
 
 ---
 
 ## Commands (17)
 
-| Command | Tier | ~Tokens | What it does |
-|---|---|---|---|
-| `/hub:brainstorm <idea>` | MEDIUM | 10k–30k | Explore 3+ options with trade-offs — no code, ideas only |
-| `/hub:budget [low\|medium\|ok\|clear]` | LIGHT | <2k | Opt-in budget hint; adds a budget line to the HEAVY gate |
-| `/hub:context-budget [verbose]` | LIGHT | <2k | Session headroom signal (GREEN/YELLOW/RED) + drop-candidate detection |
-| `/hub:create <what to build>` | HEAVY | 80k–200k | Scaffold a new app — up to 5 specialists from planner through devops |
-| `/hub:debug <symptom or error>` | MEDIUM | 15k–40k | Systematic root-cause investigation and fix |
-| `/hub:deploy [check\|staging\|production\|rollback]` | HEAVY | 40k–100k | Pre-flight checks, deployment, and post-deploy verification |
-| `/hub:enhance <change to make>` | HEAVY | 50k–150k | Add or update features in an existing app |
-| `/hub:help [commands\|agents\|skills\|<name>]` | LIGHT | <5k | Full capability index — reads CATALOG.md, no bash |
-| `/hub:hookify <nl description>` | LIGHT | <2k | Natural language → hooks.json snippet (never writes the file itself) |
-| `/hub:instincts [status\|show\|promote\|clear]` | LIGHT | <2k | Project-scoped learned preferences in `.hub/instincts.yaml` |
-| `/hub:ledger [weekly\|by-agent\|by-skill\|roi\|...]` | LIGHT | <3k | Read-only views over `.hub/usage.json` |
-| `/hub:orchestrate <task or plan>` | HEAVY | 80k–250k | Coordinate ≥3 agents in a 2-phase plan→approve→implement pipeline |
-| `/hub:plan <what to plan>` | MEDIUM | 20k–50k | Generate `docs/PLAN-<slug>.md` — no code, plan file only |
-| `/hub:preview [start\|stop\|url]` | LIGHT | <2k | Start/stop the dev server and show the local URL |
-| `/hub:status` | LIGHT | <2k | Project state: stack, git, open TODOs, recent changes |
-| `/hub:test [generate\|run\|coverage\|watch]` | MEDIUM | 15k–60k | `generate` = MEDIUM (writes tests); other modes = LIGHT |
-| `/hub:ui-ux-pro-max <target>` | HEAVY | 60k–180k | Deep UI/UX audit + redesign via frontend-specialist + 3 design skills |
+> Use `/hub:<command>` in **Claude Code** · Use `@hub <command>` in **OpenAI Codex**
+
+| Claude Code | Codex | Tier | ~Tokens | What it does |
+|---|---|---|---|---|
+| `/hub:brainstorm <idea>` | `@hub brainstorm <idea>` | MEDIUM | 10k–30k | Explore 3+ options with trade-offs — no code, ideas only |
+| `/hub:budget [low\|medium\|ok\|clear]` | `@hub budget [...]` | LIGHT | <2k | Opt-in budget hint; adds a budget line to the HEAVY gate |
+| `/hub:context-budget [verbose]` | `@hub context-budget` | LIGHT | <2k | Session headroom signal (GREEN/YELLOW/RED) + drop-candidate detection |
+| `/hub:create <what to build>` | `@hub create <app>` | HEAVY | 80k–200k | Scaffold a new app — up to 5 specialists from planner through devops |
+| `/hub:debug <symptom or error>` | `@hub debug <symptom>` | MEDIUM | 15k–40k | Systematic root-cause investigation and fix |
+| `/hub:deploy [check\|staging\|production\|rollback]` | `@hub deploy [...]` | HEAVY | 40k–100k | Pre-flight checks, deployment, and post-deploy verification |
+| `/hub:enhance <change to make>` | `@hub enhance <change>` | HEAVY | 50k–150k | Add or update features in an existing app |
+| `/hub:help [commands\|agents\|skills\|<name>]` | `@hub help [...]` | LIGHT | <5k | Full capability index — reads CATALOG.md, no bash |
+| `/hub:hookify <nl description>` | `@hub hookify <desc>` | LIGHT | <2k | Natural language → hooks.json snippet (never writes the file itself) |
+| `/hub:instincts [status\|show\|promote\|clear]` | `@hub instincts [...]` | LIGHT | <2k | Project-scoped learned preferences in `.hub/instincts.yaml` |
+| `/hub:ledger [weekly\|by-agent\|by-skill\|roi\|...]` | `@hub ledger [...]` | LIGHT | <3k | Read-only views over `.hub/usage.json` |
+| `/hub:orchestrate <task or plan>` | `@hub orchestrate <task>` | HEAVY | 80k–250k | Coordinate ≥3 agents in a 2-phase plan→approve→implement pipeline |
+| `/hub:plan <what to plan>` | `@hub plan <feature>` | MEDIUM | 20k–50k | Generate `docs/PLAN-<slug>.md` — no code, plan file only |
+| `/hub:preview [start\|stop\|url]` | `@hub preview [...]` | LIGHT | <2k | Start/stop the dev server and show the local URL |
+| `/hub:status` | `@hub status` | LIGHT | <2k | Project state: stack, git, open TODOs, recent changes |
+| `/hub:test [generate\|run\|coverage\|watch]` | `@hub test [...]` | MEDIUM | 15k–60k | `generate` = MEDIUM (writes tests); other modes = LIGHT |
+| `/hub:ui-ux-pro-max <target>` | `@hub ui-ux-pro-max <target>` | HEAVY | 60k–180k | Deep UI/UX audit + redesign via frontend-specialist + 3 design skills |
 
 ---
 
@@ -216,29 +219,29 @@ Skills are loaded on demand by agents. All 42 live in `skills/` and are shared a
 - **Security:** `hub:vulnerability-scanner`, `hub:red-team-tactics`
 - **Ops:** `hub:deployment-procedures`, `hub:server-management`, `hub:performance-profiling`
 
-Full list: [`skills/`](skills/). Run `/hub:help skills` to list everything live.
+Full list: [`skills/`](skills/). Run `/hub:help skills` (Claude Code) or `@hub help skills` (Codex) to list everything live.
 
 ---
 
 ## Approval-first by design
 
-Every `/hub:*` command declares a tier. Commands never silently fan out agents on your tokens.
+Every command declares a tier. Commands never silently fan out agents on your tokens.
 
-| Tier | Behaviour | Examples |
-|---|---|---|
-| **LIGHT** | Runs directly — no gate. | `/hub:status`, `/hub:preview`, `/hub:budget`, `/hub:ledger` |
-| **MEDIUM** | One-line preview + `y/n/tweak` prompt. | `/hub:debug`, `/hub:plan`, `/hub:brainstorm`, `/hub:test <target>` |
-| **HEAVY** | Full gate — agents, skills, estimated tokens, MoSCoW scope, alternatives. | `/hub:create`, `/hub:enhance`, `/hub:deploy`, `/hub:orchestrate`, `/hub:ui-ux-pro-max` |
+| Tier | Behaviour | Claude Code | Codex |
+|---|---|---|---|
+| **LIGHT** | Runs directly — no gate. | `/hub:status`, `/hub:preview`, `/hub:budget` | `@hub status`, `@hub preview`, `@hub budget` |
+| **MEDIUM** | One-line preview + `y/n/tweak` prompt. | `/hub:debug`, `/hub:plan`, `/hub:brainstorm` | `@hub debug`, `@hub plan`, `@hub brainstorm` |
+| **HEAVY** | Full gate — agents, skills, estimated tokens, MoSCoW scope, alternatives. | `/hub:create`, `/hub:enhance`, `/hub:deploy` | `@hub create`, `@hub enhance`, `@hub deploy` |
 
 Pass `--yes` or `-y` as the first argument to bypass any gate.
 
 **Usage log — `.hub/usage.json`** (gitignored, project-local)
 
-Read it via `/hub:ledger`:
+Read it via `/hub:ledger` (Claude Code) or `@hub ledger` (Codex):
 
-- `/hub:ledger weekly` — ISO-week totals by tier, top agents, top skills
-- `/hub:ledger by-agent` / `by-skill` / `by-tier` — ranked aggregations
-- `/hub:ledger roi` — useful/wasted/partial ratios (from runs you tag)
+- `ledger weekly` — ISO-week totals by tier, top agents, top skills
+- `ledger by-agent` / `by-skill` / `by-tier` — ranked aggregations
+- `ledger roi` — useful/wasted/partial ratios (from runs you tag)
 
 **Honesty contract:** every token number is prefixed `~`. No dollar conversion, ever.
 

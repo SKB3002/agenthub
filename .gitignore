@@ -47,3 +47,4 @@ build/
 
 # codex/skills is a Windows junction pointing to skills/ — not committable
 codex/skills
+plugins/hub/skills

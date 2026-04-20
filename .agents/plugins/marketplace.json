@@ -8,7 +8,7 @@
       "name": "hub",
       "source": {
         "source": "local",
-        "path": "./codex"
+        "path": "./plugins/hub"
       },
       "policy": {
         "installation": "AVAILABLE",
