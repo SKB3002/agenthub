@@ -1,6 +1,6 @@
 ---
 name: help
-description: List kit commands, agents, and skills. Accepts optional subject: "commands", "agents", "skills", or a specific name.
+description: List hub commands, agents, and skills. Accepts optional subject: "commands", "agents", "skills", or a specific name.
 argument-hint: [commands|agents|skills|<name>]
 tier: LIGHT
 estimated-tokens: "<5k"
@@ -13,14 +13,15 @@ $ARGUMENTS
 
 ## Flow
 
-Read `CATALOG.md` from the plugin root (one Read call — no bash, no glob).
+Read `CATALOG.md` from the repo root (one Read call — no bash, no glob).
+Path: `../../CATALOG.md` relative to this file, or `CATALOG.md` from the repo root.
 
 Render per argument:
 - *empty* → OVERVIEW: workflow + tier-bucketed commands + agent roster
 - `commands` → full command table from CATALOG.md
 - `agents` → all 20 agents grouped by domain from CATALOG.md
 - `skills` → all 42 skills grouped by cluster from CATALOG.md
-- `<name>` → LOOKUP: read `codex/commands/<name>.md`, `codex/agents/<name>.toml`, or `skills/<name>/SKILL.md`
+- `<name>` → LOOKUP: try in order: `commands/<name>.md`, `agents/<name>.toml`, `../../skills/<name>/SKILL.md`
 
 No agent dispatch. No writes. One Read call for overview; two for lookup.
 

@@ -1,6 +1,6 @@
 {
   "name": "agenthub",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "owner": {
     "name": "Suyash Bhatkar",
     "email": "info@apguru.com",
@@ -8,8 +8,8 @@
   },
   "plugins": [
     {
-      "name": "kit",
-      "description": "20 specialist subagents, 42 skills, and 17 slash commands. Approval-first dispatch with LIGHT/MEDIUM/HEAVY tiers, live /hub:help discovery, opt-in usage tracking, and project-scoped instincts. Adapted from vudovn/antigravity-kit with Python/FastAPI/SQLAlchemy and LLM observability additions.",
+      "name": "hub",
+      "description": "20 specialist subagents, 42 skills, and 17 slash commands. Approval-first dispatch with LIGHT/MEDIUM/HEAVY tiers, live /hub:help discovery, opt-in usage tracking, and project-scoped instincts. Python/FastAPI/SQLAlchemy and LLM observability coverage alongside Node/Next.js.",
       "category": "development",
       "author": {
         "name": "Suyash Bhatkar",

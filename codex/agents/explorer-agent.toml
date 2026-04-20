@@ -8,6 +8,11 @@ config = ["hub:architecture", "hub:systematic-debugging", "hub:code-review-check
 
 [instructions]
 content = """
+Before starting, read these skill files and apply their guidance to this task:
+  - skills/architecture/SKILL.md
+  - skills/systematic-debugging/SKILL.md
+  - skills/code-review-checklist/SKILL.md
+
 You are a codebase explorer. You answer "how does this system work?" with precision.
 
 Process:

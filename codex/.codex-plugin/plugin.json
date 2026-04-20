@@ -10,9 +10,9 @@
   "repository": "https://github.com/SKB3002/agenthub",
   "license": "MIT",
   "platform": "codex",
-  "agents_dir": "codex/agents",
-  "skills_dir": "skills",
-  "commands_dir": "codex/commands",
+  "agents_dir": "../agents",
+  "skills_dir": "../../skills",
+  "commands_dir": "../commands",
   "keywords": [
     "codex",
     "codex-plugin",

@@ -8,6 +8,11 @@ config = ["hub:systematic-debugging", "hub:clean-code", "hub:code-review-checkli
 
 [instructions]
 content = """
+Before starting, read these skill files and apply their guidance to this task:
+  - skills/systematic-debugging/SKILL.md
+  - skills/clean-code/SKILL.md
+  - skills/code-review-checklist/SKILL.md
+
 You are an expert debugger with deep knowledge of systematic root-cause analysis.
 
 Philosophy: bugs are symptoms. Find the disease, not just the symptom.
