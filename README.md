@@ -29,62 +29,42 @@ AgentHub gives you a curated, MIT-licensed answer. One install, both ecosystems.
 
 ## Install
 
-### Claude Code — VS Code / Cursor extension
+### Claude Code
 
-1. Open the Claude Code extension sidebar
-2. Type `/plugin` → **Manage Plugins** → **Marketplace**
-3. Paste: `https://github.com/SKB3002/agenthub`
-4. Enable the `hub` plugin → **Reload Window**
+**VS Code / Cursor extension:**
 
-> **To update:** go to **Manage Plugins → Marketplace** and click Update next to `agenthub`.
+1. Press `/` in the Claude Code sidebar → **Manage Plugins** → **Marketplace**
+2. Paste `https://github.com/SKB3002/agenthub` and confirm
+3. Go to **Plugins**, search **hub**, and click **Install**
 
-### Claude Code — CLI
+Run `/hub:help` to verify — it will list all 17 commands, 20 agents, and 42 skills.
 
-```bash
-claude plugin install agenthub
-```
-
-### Claude Code — Clone and use locally
+**CLI:**
 
 ```bash
-git clone https://github.com/SKB3002/agenthub.git
-claude --plugin-dir ./agenthub
+claude plugin install https://github.com/SKB3002/agenthub
 ```
 
-Then activate the routing protocol in your project's `CLAUDE.md`:
+Then search **hub** in `/plugin` and install.
 
-```
-@hub/PROTOCOL.md
-```
+---
 
-Run `/hub:help` to verify the plugin loaded — it will show all 17 commands, 20 agents, and 42 skills.
-
-### OpenAI Codex — Simple install
+### OpenAI Codex
 
 ```bash
-git clone https://github.com/SKB3002/agenthub.git
-codex marketplace add ./agenthub
+# 1. Install the Codex CLI (if you haven't already)
+npm install -g @openai/codex
+
+# 2. Register the AgentHub marketplace
+codex marketplace add https://github.com/SKB3002/agenthub
+
+# 3. Start Codex, then install the plugin
+codex
 ```
 
-> **Important:** add the repo root, not a subfolder — the marketplace manifest is at `.agents/plugins/marketplace.json` inside the repo, which points Codex to the plugin at `plugins/hub/`.
+Inside Codex: press `/plugin` → search **hub** → **Install**.
 
-Restart Codex and type `@hub help` to verify. **Use `@hub` to invoke, not `/hub:`** — the `/` prefix is reserved for Codex built-in commands and will reject plugin workflows.
-
-### OpenAI Codex — Global install (available across all projects)
-
-```bash
-# 1. Clone to a stable location
-git clone https://github.com/SKB3002/agenthub.git ~/dev/agenthub   # macOS/Linux
-git clone https://github.com/SKB3002/agenthub.git C:\dev\agenthub  # Windows
-
-# 2. Register the marketplace
-codex marketplace add ~/dev/agenthub        # macOS/Linux
-codex marketplace add C:\dev\agenthub       # Windows
-```
-
-Codex reads `<repo>/.agents/plugins/marketplace.json` and installs the `hub` plugin from `plugins/hub/`. To update later: `git pull` inside the cloned repo — no reinstall needed.
-
-Full install guide: [`codex/PUBLISH.md`](codex/PUBLISH.md)
+Use `@hub help` to verify. **Always use `@hub` in Codex, never `/hub:`** — the `/` prefix is reserved for Codex built-ins.
 
 ---
 
