@@ -17,9 +17,39 @@ const sections: Section[] = [
     ],
   },
   {
+    title: "Guide · Commands",
+    items: [
+      { href: "/docs/guide/brainstorm", label: "Brainstorm" },
+      { href: "/docs/guide/plan", label: "Plan" },
+      { href: "/docs/guide/create", label: "Create" },
+      { href: "/docs/guide/debug", label: "Debug" },
+      { href: "/docs/guide/orchestrate", label: "Orchestrate" },
+      { href: "/docs/guide/deploy", label: "Deploy" },
+    ],
+  },
+  {
+    title: "Guide · Agents",
+    items: [
+      { href: "/docs/guide/agent-frontend-specialist", label: "Frontend specialist" },
+      { href: "/docs/guide/agent-backend-specialist", label: "Backend specialist" },
+      { href: "/docs/guide/agent-debugger", label: "Debugger" },
+      { href: "/docs/guide/agent-security-auditor", label: "Security auditor" },
+      { href: "/docs/guide/agent-project-planner", label: "Project planner" },
+    ],
+  },
+  {
+    title: "Guide · Skills",
+    items: [
+      { href: "/docs/guide/skill-clean-code", label: "Clean code" },
+      { href: "/docs/guide/skill-app-builder", label: "App builder" },
+      { href: "/docs/guide/skill-approval-gate", label: "Approval gate" },
+      { href: "/docs/guide/skill-systematic-debugging", label: "Systematic debugging" },
+    ],
+  },
+  {
     title: "Reference",
     items: [
-      { href: "/docs/commands", label: "Commands (17)" },
+      { href: "/docs/commands", label: "Commands (37)" },
       { href: "/docs/agents", label: "Agents (20)" },
       { href: "/docs/skills", label: "Skills (42)" },
       { href: "/docs/tiers", label: "Tiers & approval gates" },
