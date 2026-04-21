@@ -1,7 +1,7 @@
 {
   "name": "hub",
-  "version": "0.4.3",
-  "description": "20 specialist subagents, 42 skills, and 17 workflows for OpenAI Codex. Invoke with @hub. Approval-first dispatch, live capability discovery, and opt-in usage tracking — all on the user's budget, with the user's consent.",
+  "version": "0.4.5",
+  "description": "20 specialist subagents, 42 skills, 17 workflows, and 20 agent shims for OpenAI Codex. Invoke with @hub. Approval-first dispatch, live capability discovery, and opt-in usage tracking — all on the user's budget, with the user's consent.",
   "author": {
     "name": "Suyash Bhatkar",
     "email": "info@apguru.com",
