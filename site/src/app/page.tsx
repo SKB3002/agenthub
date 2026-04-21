@@ -176,14 +176,15 @@ export default async function Home() {
                           <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-xs">
                             /
                           </kbd>{" "}
-                          → <strong>Manage Plugins</strong> → <strong>Marketplace</strong>
+                          in the Claude Code sidebar → <strong>Manage Plugins</strong> →{" "}
+                          <strong>Marketplace</strong>
                         </li>
                         <li>
                           Paste <code className="text-xs">https://github.com/SKB3002/agenthub</code>{" "}
                           and confirm
                         </li>
                         <li>
-                          Open <strong>Plugins</strong>, search <strong>hub</strong>, click{" "}
+                          Go to <strong>Plugins</strong>, search <strong>hub</strong>, and click{" "}
                           <strong>Install</strong>
                         </li>
                         <li>
@@ -194,11 +195,13 @@ export default async function Home() {
                           → <strong>Reload Window</strong>
                         </li>
                       </ol>
-                      <p className="mb-2 text-sm text-muted-foreground">Prefer CLI?</p>
-                      <CodeBlock code="claude plugin install https://github.com/SKB3002/agenthub" />
                       <p className="mt-3 text-sm text-muted-foreground">
-                        Verify with <code className="text-xs">/hub:help</code> — lists all 17
-                        commands, 20 agents, and 42 skills.
+                        Run <code className="text-xs">/hub:help</code> to verify — it will list all
+                        17 commands, 20 agents, and 42 skills. Or press{" "}
+                        <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-xs">
+                          /
+                        </kbd>{" "}
+                        and manually check the newly loaded commands.
                       </p>
                     </div>
                   ),
@@ -209,27 +212,32 @@ export default async function Home() {
                   content: (
                     <div>
                       <CodeBlock
+                        lang="powershell"
                         code={`# 1. Install the Codex CLI (if you haven't already)
 npm install -g @openai/codex
 
-# 2. Register the AgentHub marketplace
+# 2. Register the AgentHub marketplace (either command works)
+codex plugin marketplace add https://github.com/SKB3002/agenthub
+# or the older short form:
 codex marketplace add https://github.com/SKB3002/agenthub
 
-# 3. Start Codex, then install the plugin
+# 3. Start Codex in PowerShell (or your terminal)
 codex`}
                       />
                       <p className="mt-4 text-sm text-muted-foreground">
-                        Inside Codex: press <code className="text-xs">/plugin</code> → search{" "}
+                        Inside Codex: type <code className="text-xs">/plugin</code> → search{" "}
                         <strong>hub</strong> → <strong>Install</strong>.
+                      </p>
+                      <p className="mt-3 text-sm text-muted-foreground">
+                        Use <code className="text-xs">@hub help</code> to verify.
                       </p>
                       <div className="mt-4 rounded-md border border-border bg-background p-4 text-sm">
                         <p className="font-semibold">
-                          Use <code>@hub</code>, not <code>/hub:</code>
+                          Always use <code>@hub</code> in Codex, never <code>/hub:</code>
                         </p>
                         <p className="mt-1 text-muted-foreground">
                           The <code>/</code> prefix is reserved for Codex built-ins — typing{" "}
-                          <code>/hub:debug</code> in Codex will be rejected. Always use{" "}
-                          <code>@hub debug</code>.
+                          <code>/hub:debug</code> in Codex will be rejected.
                         </p>
                       </div>
                     </div>

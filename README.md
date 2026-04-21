@@ -44,18 +44,20 @@ Run `/hub:help` to verify — it will list all 17 commands, 20 agents, and 42 sk
 
 ### OpenAI Codex
 
-```bash
+```powershell
 # 1. Install the Codex CLI (if you haven't already)
 npm install -g @openai/codex
 
-# 2. Register the AgentHub marketplace
+# 2. Register the AgentHub marketplace (either command works)
+codex plugin marketplace add https://github.com/SKB3002/agenthub
+# or the older short form:
 codex marketplace add https://github.com/SKB3002/agenthub
 
-# 3. Start Codex, then install the plugin
+# 3. Start Codex in PowerShell (or your terminal)
 codex
 ```
 
-Inside Codex: press `/plugin` → search **hub** → **Install**.
+Inside Codex: type `/plugin` → search **hub** → **Install**.
 
 Use `@hub help` to verify. **Always use `@hub` in Codex, never `/hub:`** — the `/` prefix is reserved for Codex built-ins.
 

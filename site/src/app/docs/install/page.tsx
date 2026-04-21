@@ -38,7 +38,7 @@ export default function InstallPage() {
                     Paste <code>https://github.com/SKB3002/agenthub</code> and confirm
                   </li>
                   <li>
-                    Open <strong>Plugins</strong>, search <strong>hub</strong>, click{" "}
+                    Go to <strong>Plugins</strong>, search <strong>hub</strong>, and click{" "}
                     <strong>Install</strong>
                   </li>
                   <li>
@@ -50,22 +50,16 @@ export default function InstallPage() {
                   </li>
                 </ol>
                 <p>
-                  Verify it&apos;s loaded by running <code>/hub:help</code> — you should see the full
-                  list of 17 commands, 20 agents, and 42 skills. Or simply press{" "}
+                  Run <code>/hub:help</code> to verify — it will list all 17 commands, 20 agents,
+                  and 42 skills. Or press{" "}
                   <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-xs">/</kbd>{" "}
-                  and manually scan the new commands in the palette.
-                </p>
-
-                <h3>CLI</h3>
-                <CodeBlock code="claude plugin install https://github.com/SKB3002/agenthub" />
-                <p>
-                  Then search <strong>hub</strong> in <code>/plugin</code> and install.
+                  and manually check the newly loaded commands in the palette.
                 </p>
 
                 <h3>Updating</h3>
                 <p>
                   Open <strong>Manage Plugins → Marketplace</strong> and click <strong>Update</strong>{" "}
-                  next to <code>agenthub</code>. Restart the window to pick up the new release.
+                  next to <code>agenthub</code>. Reload the window to pick up the new release.
                 </p>
               </div>
             ),
@@ -77,17 +71,20 @@ export default function InstallPage() {
               <div>
                 <h3>CLI install</h3>
                 <CodeBlock
+                  lang="powershell"
                   code={`# 1. Install the Codex CLI (if you haven't already)
 npm install -g @openai/codex
 
-# 2. Register the AgentHub marketplace
+# 2. Register the AgentHub marketplace (either command works)
+codex plugin marketplace add https://github.com/SKB3002/agenthub
+# or the older short form:
 codex marketplace add https://github.com/SKB3002/agenthub
 
-# 3. Start Codex, then install the plugin
+# 3. Start Codex in PowerShell (or your terminal)
 codex`}
                 />
                 <p>
-                  Inside Codex: press <code>/plugin</code> → search <strong>hub</strong> →{" "}
+                  Inside Codex: type <code>/plugin</code> → search <strong>hub</strong> →{" "}
                   <strong>Install</strong>.
                 </p>
 
@@ -98,15 +95,16 @@ codex`}
                 </p>
 
                 <blockquote>
-                  <strong>Use <code>@hub</code>, not <code>/hub:</code>.</strong> The <code>/</code>{" "}
-                  prefix is reserved for Codex built-ins, so <code>/hub:debug</code> will be
-                  rejected. Always type <code>@hub debug</code>, <code>@hub plan</code>, etc.
+                  <strong>Always use <code>@hub</code> in Codex, never <code>/hub:</code>.</strong>{" "}
+                  The <code>/</code> prefix is reserved for Codex built-ins, so{" "}
+                  <code>/hub:debug</code> will be rejected. Always type <code>@hub debug</code>,{" "}
+                  <code>@hub plan</code>, etc.
                 </blockquote>
 
                 <h3>Updating</h3>
                 <p>
-                  Re-run <code>codex marketplace add https://github.com/SKB3002/agenthub</code> to
-                  pull the latest release manifest, then re-install from <code>/plugin</code>.
+                  Re-run <code>codex plugin marketplace add https://github.com/SKB3002/agenthub</code>{" "}
+                  to pull the latest release manifest, then re-install from <code>/plugin</code>.
                 </p>
               </div>
             ),
