@@ -27,7 +27,11 @@ Need a second opinion? `/hub:brainstorm` → `/hub:plan` before any code.
 
 ---
 
-## Commands (17)
+## Commands (17 workflows + 20 agent shims = 37 total)
+
+The first 17 below are the workflow commands — the main surface users interact with. The 20 `/hub:agent-<name>` shims are thin dispatch wrappers, one per agent, for users who want direct access to a specific agent from autocomplete. Use them if the workflow commands don't fit; use workflows when they do.
+
+### Workflows (17)
 
 | Command | Tier | ~Tokens | What it does |
 |---|---|---|---|
@@ -50,6 +54,33 @@ Need a second opinion? `/hub:brainstorm` → `/hub:plan` before any code.
 | `/hub:ui-ux-pro-max <target>` | HEAVY | 60k–180k | Deep UI/UX audit + redesign — frontend-specialist + 3 design skills |
 
 Pass `--yes` or `-y` to any command to bypass the gate (MEDIUM/HEAVY). Usage still logs.
+
+### Agent shims (20) — direct dispatch, LIGHT, no gate
+
+Each `/hub:agent-<name>` is a thin wrapper that dispatches the named agent with your arguments. Useful when you want a specific expert by name instead of going through a workflow.
+
+| Shim | Dispatches |
+|---|---|
+| `/hub:agent-orchestrator <task>` | `hub:orchestrator` |
+| `/hub:agent-project-planner <task>` | `hub:project-planner` |
+| `/hub:agent-product-owner <task>` | `hub:product-owner` |
+| `/hub:agent-product-manager <task>` | `hub:product-manager` |
+| `/hub:agent-code-archaeologist <task>` | `hub:code-archaeologist` |
+| `/hub:agent-backend-specialist <task>` | `hub:backend-specialist` |
+| `/hub:agent-database-architect <task>` | `hub:database-architect` |
+| `/hub:agent-devops-engineer <task>` | `hub:devops-engineer` |
+| `/hub:agent-security-auditor <task>` | `hub:security-auditor` |
+| `/hub:agent-penetration-tester <task>` | `hub:penetration-tester` |
+| `/hub:agent-performance-optimizer <task>` | `hub:performance-optimizer` |
+| `/hub:agent-frontend-specialist <task>` | `hub:frontend-specialist` |
+| `/hub:agent-mobile-developer <task>` | `hub:mobile-developer` |
+| `/hub:agent-seo-specialist <task>` | `hub:seo-specialist` |
+| `/hub:agent-game-developer <task>` | `hub:game-developer` |
+| `/hub:agent-debugger <task>` | `hub:debugger` |
+| `/hub:agent-test-engineer <task>` | `hub:test-engineer` |
+| `/hub:agent-qa-automation-engineer <task>` | `hub:qa-automation-engineer` |
+| `/hub:agent-documentation-writer <task>` | `hub:documentation-writer` |
+| `/hub:agent-explorer-agent <task>` | `hub:explorer-agent` |
 
 ---
 
