@@ -1,6 +1,21 @@
-# AgentHub
+<h1 align="center">⚡ AgentHub</h1>
 
-> **20 specialist subagents · 42 skills · 17 workflows** — works on both **Claude Code** and **OpenAI Codex**. One repo, two platforms, shared core.
+<p align="center">
+  <b>Stop prompting. Start operating.</b><br/>
+  Turn <b>Claude Code</b> & <b>OpenAI Codex</b> into structured AI coding agents
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/github/stars/SKB3002/agenthub?style=for-the-badge" />
+  <img src="https://img.shields.io/github/forks/SKB3002/agenthub?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Open%20Source-MIT-green?style=for-the-badge" />
+</p>
+
+---
+
+→ 🧠 20 specialized agents (backend, security, UI, etc.)  
+→ 🧩 42 modular skills (loaded on demand)  
+→ ⚙️ 17 workflows (brainstorm → plan → build → test → deploy)  
 
 AgentHub gives your AI coding sessions an instant upgrade: domain experts that activate automatically, deep knowledge modules loaded on demand, and workflow commands that orchestrate entire feature builds — all on your budget, with your consent.
 
